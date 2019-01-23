@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Contacts
 import MapKit
 
 struct ChargeStation: Codable {
@@ -53,6 +54,14 @@ class ChargeStationAnnotation: NSObject, MKAnnotation {
         self.coordinate = coordinate
         
         super.init()
+    }
+    
+    func mapItem() -> MKMapItem {
+        let addressDict = [CNPostalAddressStreetKey: subtitle!]
+        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = title
+        return mapItem
     }
     
     var subtitle: String? {

@@ -15,8 +15,9 @@
 		7652FF8521F34EDC007D41C5 /* ChargeMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7652FF8321F34EDC007D41C5 /* ChargeMe.xcdatamodeld */; };
 		7652FF8721F34EDD007D41C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7652FF8621F34EDD007D41C5 /* Assets.xcassets */; };
 		7652FF8A21F34EDD007D41C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7652FF8821F34EDD007D41C5 /* LaunchScreen.storyboard */; };
+		7657402921F8B7AA00B4D4CD /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7657402821F8B7AA00B4D4CD /* UIColorExtension.swift */; };
 		766FA1CB21F51040003030F0 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CA21F51040003030F0 /* APIManager.swift */; };
-		766FA1CD21F524A5003030F0 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CC21F524A5003030F0 /* ErrorManager.swift */; };
+		766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CC21F524A5003030F0 /* NetworkError.swift */; };
 		766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */; };
 		76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
@@ -32,8 +33,9 @@
 		7652FF8621F34EDD007D41C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7652FF8921F34EDD007D41C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7652FF8B21F34EDD007D41C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7657402821F8B7AA00B4D4CD /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		766FA1CA21F51040003030F0 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIManager.swift; path = ChargeMe/Networking/APIManager.swift; sourceTree = SOURCE_ROOT; };
-		766FA1CC21F524A5003030F0 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
+		766FA1CC21F524A5003030F0 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStationChargerManager.swift; sourceTree = "<group>"; };
 		76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +74,7 @@
 				7652FF9421F3543A007D41C5 /* View */,
 				7652FF9521F3543F007D41C5 /* Controller */,
 				7652FF9121F35074007D41C5 /* Networking */,
+				7657402721F8ADB300B4D4CD /* ErrorManager */,
 				76FA7B1521F7462E000C41A2 /* Extensions */,
 				7652FF9221F35419007D41C5 /* Supporting files */,
 				7652FF8321F34EDC007D41C5 /* ChargeMe.xcdatamodeld */,
@@ -83,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				766FA1CA21F51040003030F0 /* APIManager.swift */,
-				766FA1CC21F524A5003030F0 /* ErrorManager.swift */,
 				766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */,
 			);
 			path = Networking;
@@ -125,10 +127,19 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		7657402721F8ADB300B4D4CD /* ErrorManager */ = {
+			isa = PBXGroup;
+			children = (
+				766FA1CC21F524A5003030F0 /* NetworkError.swift */,
+			);
+			path = ErrorManager;
+			sourceTree = "<group>";
+		};
 		76FA7B1521F7462E000C41A2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */,
+				7657402821F8B7AA00B4D4CD /* UIColorExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -211,7 +222,8 @@
 				766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */,
 				7652FF7F21F34EDC007D41C5 /* MainViewController.swift in Sources */,
 				7652FF7D21F34EDC007D41C5 /* AppDelegate.swift in Sources */,
-				766FA1CD21F524A5003030F0 /* ErrorManager.swift in Sources */,
+				7657402921F8B7AA00B4D4CD /* UIColorExtension.swift in Sources */,
+				766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */,
 				7623DB8C21F73A6300E40D9A /* Coordinates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
