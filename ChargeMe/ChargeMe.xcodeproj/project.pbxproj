@@ -19,6 +19,8 @@
 		766FA1CB21F51040003030F0 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CA21F51040003030F0 /* APIManager.swift */; };
 		766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CC21F524A5003030F0 /* NetworkError.swift */; };
 		766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */; };
+		76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */; };
+		76C06EE721F9E26B00C61ECA /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C06EE621F9E26B00C61ECA /* MainController.swift */; };
 		76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,8 @@
 		766FA1CA21F51040003030F0 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIManager.swift; path = ChargeMe/Networking/APIManager.swift; sourceTree = SOURCE_ROOT; };
 		766FA1CC21F524A5003030F0 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStationChargerManager.swift; sourceTree = "<group>"; };
+		76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		76C06EE621F9E26B00C61ECA /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				7652FF7C21F34EDC007D41C5 /* AppDelegate.swift */,
+				76C06EE621F9E26B00C61ECA /* MainController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 			children = (
 				76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */,
 				7657402821F8B7AA00B4D4CD /* UIColorExtension.swift */,
+				76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -217,7 +223,9 @@
 			files = (
 				761AD8FB21F53EB500799AFE /* ChargeStation.swift in Sources */,
 				766FA1CB21F51040003030F0 /* APIManager.swift in Sources */,
+				76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */,
 				76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */,
+				76C06EE721F9E26B00C61ECA /* MainController.swift in Sources */,
 				7652FF8521F34EDC007D41C5 /* ChargeMe.xcdatamodeld in Sources */,
 				766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */,
 				7652FF7F21F34EDC007D41C5 /* MainViewController.swift in Sources */,

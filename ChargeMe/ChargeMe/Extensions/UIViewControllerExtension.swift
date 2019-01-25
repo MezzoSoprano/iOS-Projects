@@ -16,4 +16,14 @@ extension UIViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func rotateAnimation(view:UIButton,duration: CFTimeInterval = 1) {
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = CGFloat(.pi * 2.0)
+        rotateAnimation.duration = duration
+        rotateAnimation.repeatCount = Float.greatestFiniteMagnitude
+        
+        view.layer.add(rotateAnimation, forKey: nil)
+    }
 }

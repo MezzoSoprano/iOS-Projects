@@ -6,13 +6,13 @@
 //  Copyright © 2019 mezzoSoprano. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
  class MapChargesTypeURL {
     static var baseURL: String = "https://api.openchargemap.io/v2/poi/?"
 
     static func getModifiedRequest(coordinates: Coordinates, distance: Double) -> URLRequest {
-        let urlString = baseURL + "maxresults=400&latitude=\(coordinates.latitude)&longitude=\(coordinates.longitude)&distance=\(distance)"
+        let urlString = baseURL + "maxresults=1000&latitude=\(coordinates.latitude)&longitude=\(coordinates.longitude)&distance=\(distance)"
         let url = URL(string: urlString)!
         let request = URLRequest(url: url)
         return request
@@ -20,14 +20,16 @@ import Foundation
 }
 
 final class APIStaionsManager: APIManager {
+    var viewController: UIViewController
     
     let sessionConfiguration: URLSessionConfiguration
     lazy var session: URLSession = {
         return URLSession(configuration: self.sessionConfiguration)
     } ()
 
-    init(sessionConfiguration: URLSessionConfiguration) {
+    init(sessionConfiguration: URLSessionConfiguration, viewController: UIViewController) {
         self.sessionConfiguration = sessionConfiguration
+        self.viewController = viewController
     }
 
     func fetchStationsWith(coordinates: Coordinates, radius: Double, completionHandler: @escaping (APIResult<ChargeStation>) -> Void) {
