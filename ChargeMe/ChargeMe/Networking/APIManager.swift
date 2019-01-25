@@ -6,7 +6,7 @@
 //  Copyright © 2019 mezzoSoprano. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 typealias JSONTask = URLSessionDataTask
 typealias JSONCompletionHandler = (Data?, HTTPURLResponse?, Error?) -> Void
@@ -17,6 +17,9 @@ enum APIResult<T> {
 }
 
 protocol APIManager {
+    
+    var viewController: UIViewController  { get } 
+    
     var sessionConfiguration: URLSessionConfiguration { get }
     var session: URLSession { get }
     
@@ -57,13 +60,23 @@ extension APIManager {
     }
     
     func fetch<T>(request: URLRequest, parse: @escaping (Data) -> [T]?, completionHandler: @escaping (APIResult<T>) -> Void) {
-
+        
+        let progressIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        progressIndicator.color = UIColor(r: 127, g: 181, b: 181)
+        progressIndicator.center = self.viewController.view.center
+        progressIndicator.startAnimating()
+    
+        self.viewController.view.addSubview(progressIndicator)
         let dataTask = JSONTaskWith(request: request) { (data, response, error) in
+            
             DispatchQueue.main.async(execute: {
+                
                 guard let dataTemp = data else {
                     if let error = error {
                         completionHandler(.Failure(error))
                     }
+                    progressIndicator.removeFromSuperview()
+                    self.viewController.view.subviews.forEach({$0.layer.removeAllAnimations()})
                     return
                 }
 
@@ -73,6 +86,9 @@ extension APIManager {
                     let error = NSError(domain: NetworkingErrorDomain, code: 200, userInfo: nil)
                     completionHandler(.Failure(error))
                 }
+                
+                self.viewController.view.subviews.forEach({$0.layer.removeAllAnimations()})
+                progressIndicator.removeFromSuperview()
             })
         }
         dataTask.resume()

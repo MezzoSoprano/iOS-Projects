@@ -13,29 +13,42 @@ import CoreLocation
 class MainViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var refreshOutlet: UIButton!
+    @IBOutlet weak var selectedRange: UILabel!
     
     let goButton: UIButton = UIButton()
     var selectedAnnotation: MKAnnotationView?
     
     let locationManager = CLLocationManager()
-    let regionInMeters: Double = 5000
     
-    lazy var stationManager = APIStaionsManager(sessionConfiguration: URLSessionConfiguration.default)
+    lazy var stationManager = APIStaionsManager(sessionConfiguration: URLSessionConfiguration.default, viewController: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let trackingButton = MKUserTrackingBarButtonItem(mapView: mapView)
-//        trackingButton.frame = CGRect(origin: CGPoint(x:5, y: 25), size: CGSize(width: 35, height: 35))
-//        mapView.addSubview(trackingButton)
+        
+        mapView.showsCompass = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         checkLocationservices()
         
         if let location = locationManager.location {
-            showStations(near: Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), distance: 200)
+            showStations(near: Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), distance: Double(selectedRange.text!)!)
         } else { print("couldnt get location") }
     }
+    
+    @IBAction func refreshTapped(_ sender: Any) {
+        if let location = locationManager.location {
+            rotateAnimation(view: refreshOutlet)
+            showStations(near: Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), distance: Double(selectedRange.text!)!)
+        } else { print("couldnt get location") }
+        
+    }
+    
+    @IBAction func rangeChanged(_ sender: UISlider) {
+        selectedRange.text = String(Int(sender.value))
+    }
+    
     
     func setupLocationManager() {
         locationManager.delegate = self
@@ -51,9 +64,10 @@ class MainViewController: UIViewController {
         }
     }
     
-    func centerViewOnUserLocation() {
+    func centerViewOnUserLocation(regionInKM: Double) {
+        let regionKM = regionInKM * 1800
         if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionKM, longitudinalMeters: regionKM)
             mapView.setRegion(region, animated: true)
         } else { print("Couldnt get location!")}
     }
@@ -62,20 +76,31 @@ class MainViewController: UIViewController {
         stationManager.fetchStationsWith(coordinates: coordinates, radius: distance) { (result) in
             switch result {
             case .Success(let nearStations):
+                
                 if nearStations.count == 0 {
                     self.createAlert(title: "Couldn't find charge stations", message: "Sorry, there ara no any charge stations near you with distance \(distance) km")
-                }
+                } else {
                 print(nearStations.count)
                 
+                self.mapView.removeAnnotations(self.mapView.annotations)
                 for item in nearStations {
-    
-                    print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
+                        print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
                     
-                    let annotaion = item.createAnnotaion()
-                    self.mapView.addAnnotation(annotaion)
+                        let annotaion = item.createAnnotaion()
+                        self.mapView.addAnnotation(annotaion)
+                    }
+                        self.centerViewOnUserLocation(regionInKM: Double(self.selectedRange.text!)!)
                 }
             case .Failure(let error as NSError):
-                self.createAlert(title: "Unable to get data", message: "\(error.localizedDescription)")
+                
+                let alert = UIAlertController(title: "Unable to get data", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Try again", style: .default, handler: { (action) in
+                    self.showStations(near: coordinates, distance: distance)
+                }))
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    alert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(alert, animated: true, completion: nil)
             default: break
             }
         }
@@ -85,7 +110,7 @@ class MainViewController: UIViewController {
         switch CLLocationManager.authorizationStatus(){
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
-            centerViewOnUserLocation()
+            centerViewOnUserLocation(regionInKM: Double(selectedRange.text!)!)
             locationManager.startUpdatingLocation()
             break
         case .denied:
@@ -151,10 +176,11 @@ extension MainViewController: MKMapViewDelegate {
         self.selectedAnnotation = view
         
         //button creating
-        goButton.backgroundColor = .gray
+        goButton.backgroundColor = .darkGray
         goButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         goButton.layer.cornerRadius = 30
         goButton.setTitle("Go", for: .normal)
+        goButton.setShadow()
         
         self.view.addSubview(goButton)
         goButton.translatesAutoresizingMaskIntoConstraints = false
