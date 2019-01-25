@@ -20,7 +20,6 @@ class MainViewController: UIViewController {
     var selectedAnnotation: MKAnnotationView?
     
     let locationManager = CLLocationManager()
-  //  let regionInMeters: Double = 7000
     
     lazy var stationManager = APIStaionsManager(sessionConfiguration: URLSessionConfiguration.default, viewController: self)
     
@@ -73,16 +72,11 @@ class MainViewController: UIViewController {
         } else { print("Couldnt get location!")}
     }
     
-//    func centerViewOn(longitude: CLLocationDegrees, latitude: CLLocationDegrees, regionMeters: Double)
-//    {
-//        let region = MKCoordinateRegion.init(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), latitudinalMeters: regionMeters, longitudinalMeters: regionMeters)
-//        mapView.setRegion(region, animated: true)
-//    }
-    
     func showStations(near coordinates: Coordinates, distance: Double) {
         stationManager.fetchStationsWith(coordinates: coordinates, radius: distance) { (result) in
             switch result {
             case .Success(let nearStations):
+                
                 if nearStations.count == 0 {
                     self.createAlert(title: "Couldn't find charge stations", message: "Sorry, there ara no any charge stations near you with distance \(distance) km")
                 } else {
@@ -98,7 +92,7 @@ class MainViewController: UIViewController {
                         self.centerViewOnUserLocation(regionInKM: Double(self.selectedRange.text!)!)
                 }
             case .Failure(let error as NSError):
-                //self.createAlert(title: "Unable to get data", message: "\(error.localizedDescription)")
+                
                 let alert = UIAlertController(title: "Unable to get data", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Try again", style: .default, handler: { (action) in
                     self.showStations(near: coordinates, distance: distance)
