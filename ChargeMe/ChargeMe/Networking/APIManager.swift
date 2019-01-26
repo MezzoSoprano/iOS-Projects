@@ -18,13 +18,13 @@ enum APIResult<T> {
 
 protocol APIManager {
     
-    var viewController: UIViewController  { get } 
+    var viewController: MainViewController { get }
     
     var sessionConfiguration: URLSessionConfiguration { get }
     var session: URLSession { get }
     
     func JSONTaskWith(request: URLRequest, completionHandler: @escaping JSONCompletionHandler) -> JSONTask
-    func fetch<T: Codable>(request: URLRequest, parse: @escaping (Data) -> [T]?, completionHandler: @escaping (APIResult<T>) -> Void)
+    func fetch<T: Codable>(request: URLRequest, sender: AnyObject?, parse: @escaping (Data) -> [T]?, completionHandler: @escaping (APIResult<T>) -> Void)
 }
 
 extension APIManager {
@@ -59,27 +59,31 @@ extension APIManager {
         return dataTask
     }
     
-    func fetch<T>(request: URLRequest, parse: @escaping (Data) -> [T]?, completionHandler: @escaping (APIResult<T>) -> Void) {
+    func fetch<T>(request: URLRequest, sender: AnyObject?, parse: @escaping (Data) -> [T]?, completionHandler: @escaping (APIResult<T>) -> Void) {
         
         let progressIndicator = UIActivityIndicatorView(style: .whiteLarge)
         progressIndicator.color = UIColor(r: 127, g: 181, b: 181)
         progressIndicator.center = self.viewController.view.center
         progressIndicator.startAnimating()
-    
+        
         self.viewController.view.addSubview(progressIndicator)
         let dataTask = JSONTaskWith(request: request) { (data, response, error) in
             
             DispatchQueue.main.async(execute: {
-                
                 guard let dataTemp = data else {
                     if let error = error {
                         completionHandler(.Failure(error))
                     }
+                    
+                    if !self.viewController.refreshOutlet.isEnabled {
+                        self.viewController.refreshOutlet.isEnabled = true
+                    }
+                    self.viewController.refreshOutlet.layer.removeAllAnimations()
                     progressIndicator.removeFromSuperview()
-                    self.viewController.view.subviews.forEach({$0.layer.removeAllAnimations()})
+                    
                     return
                 }
-
+                
                 if let value = parse(dataTemp) {
                     completionHandler(.Success(value))
                 } else {
@@ -87,8 +91,12 @@ extension APIManager {
                     completionHandler(.Failure(error))
                 }
                 
-                self.viewController.view.subviews.forEach({$0.layer.removeAllAnimations()})
+                if !self.viewController.refreshOutlet.isEnabled {
+                    self.viewController.refreshOutlet.isEnabled = true
+                }
+                self.viewController.refreshOutlet.layer.removeAllAnimations()
                 progressIndicator.removeFromSuperview()
+                
             })
         }
         dataTask.resume()

@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var refreshOutlet: UIButton!
+    @IBOutlet weak var searchOutlet: UIButton!
     @IBOutlet weak var selectedRange: UILabel!
     
     let goButton: UIButton = UIButton()
@@ -33,22 +34,37 @@ class MainViewController: UIViewController {
         checkLocationservices()
         
         if let location = locationManager.location {
-            showStations(near: Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), distance: Double(selectedRange.text!)!)
+                self.showStations(near: Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), distance: Double(self.selectedRange.text!)!, sender: self)
         } else { print("couldnt get location") }
     }
     
     @IBAction func refreshTapped(_ sender: Any) {
-        if let location = locationManager.location {
-            rotateAnimation(view: refreshOutlet)
-            showStations(near: Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), distance: Double(selectedRange.text!)!)
-        } else { print("couldnt get location") }
         
+        if let location = locationManager.location {
+            refreshOutlet.isEnabled = false
+            rotateAnimation(view: refreshOutlet)
+            showStations(near: Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), distance: Double(selectedRange.text!)!, sender: self)
+            //refreshOutlet.isEnabled = true
+        } else { print("couldnt get location") }
     }
     
     @IBAction func rangeChanged(_ sender: UISlider) {
         selectedRange.text = String(Int(sender.value))
     }
     
+    @IBAction func seartchTapped(_ sender: Any) {
+        
+        searchOutlet.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 6.0,
+                       options: .allowUserInteraction,
+                       animations: {
+                        self.searchOutlet.transform = .identity
+        },
+                       completion: nil)
+    }
     
     func setupLocationManager() {
         locationManager.delegate = self
@@ -72,8 +88,8 @@ class MainViewController: UIViewController {
         } else { print("Couldnt get location!")}
     }
     
-    func showStations(near coordinates: Coordinates, distance: Double) {
-        stationManager.fetchStationsWith(coordinates: coordinates, radius: distance) { (result) in
+    func showStations(near coordinates: Coordinates, distance: Double, sender: AnyObject) {
+        stationManager.fetchStationsWith(coordinates: coordinates, radius: distance, sender: sender) { (result) in
             switch result {
             case .Success(let nearStations):
                 
@@ -95,7 +111,7 @@ class MainViewController: UIViewController {
                 
                 let alert = UIAlertController(title: "Unable to get data", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Try again", style: .default, handler: { (action) in
-                    self.showStations(near: coordinates, distance: distance)
+                    self.showStations(near: coordinates, distance: distance, sender: sender)
                 }))
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
                     alert.dismiss(animated: true, completion: nil)
@@ -127,7 +143,8 @@ class MainViewController: UIViewController {
         }
     }
     
-    @objc func buttonAction(sender: UIButton!) {
+    @objc func goButtonPressed(sender: Any) {
+        
         if selectedAnnotation != nil {
             let location = selectedAnnotation!.annotation as! ChargeStationAnnotation
             let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
@@ -175,9 +192,14 @@ extension MainViewController: MKMapViewDelegate {
 
         self.selectedAnnotation = view
         
+        if let myLocation = locationManager.location?.coordinate {
+            if selectedAnnotation?.annotation?.coordinate.latitude == myLocation.latitude && selectedAnnotation?.annotation?.coordinate.longitude == myLocation.longitude {
+                return
+            }
+        }
         //button creating
         goButton.backgroundColor = .darkGray
-        goButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        goButton.addTarget(self, action: #selector(goButtonPressed), for: .touchUpInside)
         goButton.layer.cornerRadius = 30
         goButton.setTitle("Go", for: .normal)
         goButton.setShadow()
