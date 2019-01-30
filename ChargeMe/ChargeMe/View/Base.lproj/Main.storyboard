@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c6r-rw-Zi7">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6r-rw-Zi7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Qnz-Xx-2GM"/>
@@ -57,6 +57,9 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hDf-j1-QsM"/>
+                                </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UI7-jl-2Cu">
                                 <rect key="frame" x="14" y="70" width="17" height="20"/>
@@ -71,26 +74,50 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kJY-mu-K0g" customClass="LOTAnimationView">
+                                <rect key="frame" x="320" y="607" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="7ic-01-Xra"/>
+                                    <constraint firstAttribute="height" constant="40" id="Lqz-RT-wx9"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2l-Tz-wIl" customClass="LOTAnimationView">
+                                <rect key="frame" x="15" y="589" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="bnb-ei-mpl"/>
+                                    <constraint firstAttribute="width" constant="60" id="zIO-JX-fcR"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="c6r-rw-Zi7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0qX-o5-Puv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mOj-mz-n8Z" secondAttribute="trailing" constant="5" id="14t-RL-Eo7"/>
                             <constraint firstItem="c6r-rw-Zi7" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="6DZ-TM-jh7"/>
+                            <constraint firstItem="z2l-Tz-wIl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="EIS-Ja-7bW"/>
                             <constraint firstItem="mOj-mz-n8Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="EbI-eU-N6z"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="z2l-Tz-wIl" secondAttribute="bottom" constant="18" id="QUM-fC-tKr"/>
                             <constraint firstItem="UI7-jl-2Cu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="14" id="UnJ-6q-a6R"/>
                             <constraint firstItem="UI7-jl-2Cu" firstAttribute="top" secondItem="mOj-mz-n8Z" secondAttribute="bottom" id="Zsh-IL-enU"/>
                             <constraint firstAttribute="bottom" secondItem="c6r-rw-Zi7" secondAttribute="bottom" id="g5A-7F-ju1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kJY-mu-K0g" secondAttribute="trailing" constant="15" id="hdw-iZ-Mz1"/>
                             <constraint firstItem="mOj-mz-n8Z" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="lES-m4-t2A"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kJY-mu-K0g" secondAttribute="bottom" constant="20" id="yGS-sG-427"/>
                             <constraint firstItem="c6r-rw-Zi7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zWF-vS-OXf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="goToMyLocation" destination="kJY-mu-K0g" id="jbJ-2F-xjr"/>
                         <outlet property="mapView" destination="c6r-rw-Zi7" id="92u-Ja-i7a"/>
                         <outlet property="refreshOutlet" destination="77g-FQ-iE5" id="Spu-FE-WiL"/>
                         <outlet property="searchOutlet" destination="2hi-ZN-q2z" id="42p-Th-169"/>
                         <outlet property="selectedRange" destination="UI7-jl-2Cu" id="Dzr-AY-M8j"/>
+                        <outlet property="settingsOutlet" destination="z2l-Tz-wIl" id="dUQ-kj-Jk2"/>
+                        <outlet property="sliderOutlet" destination="zwb-4c-XlH" id="QmR-sQ-ibY"/>
+                        <outlet property="topStackView" destination="mOj-mz-n8Z" id="hY7-u0-orI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
