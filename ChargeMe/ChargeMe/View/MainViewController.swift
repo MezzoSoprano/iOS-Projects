@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Lottie
 import CoreLocation
 
 class MainViewController: UIViewController {
@@ -18,9 +19,10 @@ class MainViewController: UIViewController {
     @IBOutlet weak var selectedRange: UILabel!
     @IBOutlet weak var sliderOutlet: UISlider!
     @IBOutlet weak var topStackView: UIStackView!
+    @IBOutlet weak var goToMyLocation: LOTAnimationView!
+    @IBOutlet weak var settingsOutlet: LOTAnimationView!
     
     let tableAutocomplete = UITableView()
-    let tableAutocompleteCellID = "CellID"
     
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -56,6 +58,28 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         searchCompleter.delegate = self
+        
+        
+        goToMyLocation.setAnimation(named: "location")
+        goToMyLocation.play()
+        goToMyLocation.setLightShadow()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToInitialCoordinates))
+        goToMyLocation.addGestureRecognizer(tapGesture)
+        goToMyLocation.isUserInteractionEnabled = true
+        goToMyLocation.translatesAutoresizingMaskIntoConstraints = false
+        
+        settingsOutlet.setAnimation(named: "settings1")
+        settingsOutlet.play()
+        settingsOutlet.setLightShadow()
+        
+        let tapGest = UITapGestureRecognizer(target: self, action: #selector(settingsTapped))
+        settingsOutlet.addGestureRecognizer(tapGest)
+        settingsOutlet.isUserInteractionEnabled = true
+        settingsOutlet.translatesAutoresizingMaskIntoConstraints = false
+        
+        refreshOutlet.setLightShadow()
+        searchOutlet.setLightShadow()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -123,6 +147,20 @@ class MainViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    @objc func settingsTapped() {
+        settingsOutlet.play()
+    }
+    
+    @objc func goToInitialCoordinates() {
+        goToMyLocation.play()
+        
+        
+        if let location = locationManager.location {
+            selectedCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            centerView(with: selectedCoordinates, region: Double(self.selectedRange.text!)!)
+        }
+    }
+
     @IBAction func refreshTapped(_ sender: Any) {
         rotateAnimation(view: refreshOutlet)
         self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
@@ -234,7 +272,6 @@ extension MainViewController: MKMapViewDelegate {
             goButton.heightAnchor.constraint(equalToConstant: 60)
             ])
         
-        
         goButton.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         UIView.animate(withDuration: 2.0,
                        delay: 0,
@@ -242,10 +279,12 @@ extension MainViewController: MKMapViewDelegate {
                        initialSpringVelocity: 6.0,
                        options: .allowUserInteraction,
                        animations: {
+                        UIView.animate(withDuration: 5) {
+                            self.goToMyLocation.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+                        }
                         self.goButton.transform = .identity
                         self.goButton.backgroundColor = UIColor(r: 127, g: 181, b: 181)
-        },
-                       completion: nil)
+        }, completion: nil)
         
     }
     
