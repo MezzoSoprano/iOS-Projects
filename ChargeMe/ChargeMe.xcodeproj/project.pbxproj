@@ -90,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				766FA1CA21F51040003030F0 /* APIManager.swift */,
-				766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -126,8 +125,9 @@
 		7652FF9521F3543F007D41C5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7652FF7C21F34EDC007D41C5 /* AppDelegate.swift */,
+				766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */,
 				76C06EE621F9E26B00C61ECA /* MainController.swift */,
+				7652FF7C21F34EDC007D41C5 /* AppDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

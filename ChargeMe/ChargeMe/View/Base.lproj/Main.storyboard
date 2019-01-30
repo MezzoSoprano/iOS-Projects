@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c6r-rw-Zi7">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6r-rw-Zi7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Qnz-Xx-2GM"/>
@@ -57,6 +57,9 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hDf-j1-QsM"/>
+                                </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UI7-jl-2Cu">
                                 <rect key="frame" x="14" y="70" width="17" height="20"/>
@@ -91,6 +94,8 @@
                         <outlet property="refreshOutlet" destination="77g-FQ-iE5" id="Spu-FE-WiL"/>
                         <outlet property="searchOutlet" destination="2hi-ZN-q2z" id="42p-Th-169"/>
                         <outlet property="selectedRange" destination="UI7-jl-2Cu" id="Dzr-AY-M8j"/>
+                        <outlet property="sliderOutlet" destination="zwb-4c-XlH" id="QmR-sQ-ibY"/>
+                        <outlet property="topStackView" destination="mOj-mz-n8Z" id="hY7-u0-orI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
