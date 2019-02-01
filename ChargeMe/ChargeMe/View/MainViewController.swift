@@ -59,7 +59,6 @@ class MainViewController: UIViewController {
         
         searchCompleter.delegate = self
         
-        
         goToMyLocation.setAnimation(named: "location")
         goToMyLocation.play()
         goToMyLocation.setLightShadow()
@@ -235,18 +234,24 @@ extension MainViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? ChargeStationAnnotation else { return nil }
         let identifier = "marker"
-        var view: MKMarkerAnnotationView
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            as? MKMarkerAnnotationView {
+        var view: MKAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
-            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
-            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.calloutOffset = CGPoint(x: 0, y: 0)
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             
+            if (annotation.title!.contains("Tesla")) {
+                view.image = UIImage(named: "superChargerPin")
+                print("\(annotation.title!) contains Tesla")
+            } else { view.image = UIImage(named: "chargerPin")
+                print("\(annotation.title!) doenst contains Tesla") }
         }
+        
+        
         
         return view
     }
