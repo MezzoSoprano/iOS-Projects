@@ -35,14 +35,16 @@ final class APIStaionsManager: APIManager {
         
         fetch(request: MapChargesTypeURL.getModifiedRequest(coordinates: coordinates, distance: radius), parse: { (data) -> [ChargeStation]? in
             do {
-                            //here dataResponse received from a network request
+                print(MapChargesTypeURL.getModifiedRequest(coordinates: coordinates, distance: radius))
+                //here dataResponse received from a network request
                 let decoder = JSONDecoder()
                 let models = try decoder.decode([ChargeStation].self, from: data) //Decode JSON Response Data
-                            return models
-                            } catch let parsingError {
-                                print("Error", parsingError)
-                                return nil
-                            }
+                print("first time is \(DispatchTime.now())")
+                return models
+            } catch let parsingError {
+                print("Error", parsingError)
+                return nil
+            }
         }, completionHandler: completionHandler)
     }
 }

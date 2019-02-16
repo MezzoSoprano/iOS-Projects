@@ -11,6 +11,7 @@ import MapKit
 import Lottie
 import CoreLocation
 
+var showedStaions: [ChargeStation] = []
 class MainViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
@@ -20,7 +21,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var sliderOutlet: UISlider!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var goToMyLocation: LOTAnimationView!
-    @IBOutlet weak var settingsOutlet: LOTAnimationView!
     
     let tableAutocomplete = UITableView()
     
@@ -68,15 +68,6 @@ class MainViewController: UIViewController {
         goToMyLocation.isUserInteractionEnabled = true
         goToMyLocation.translatesAutoresizingMaskIntoConstraints = false
         
-        settingsOutlet.setAnimation(named: "settings1")
-        settingsOutlet.play()
-        settingsOutlet.setLightShadow()
-        
-        let tapGest = UITapGestureRecognizer(target: self, action: #selector(settingsTapped))
-        settingsOutlet.addGestureRecognizer(tapGest)
-        settingsOutlet.isUserInteractionEnabled = true
-        settingsOutlet.translatesAutoresizingMaskIntoConstraints = false
-        
         refreshOutlet.setLightShadow()
         searchOutlet.setLightShadow()
     }
@@ -105,12 +96,17 @@ class MainViewController: UIViewController {
                     
                     self.mapView.removeAnnotations(self.mapView.annotations.filter({ $0.coordinate.latitude != self.selectedCoordinates.latitude && $0.coordinate.longitude != self.selectedCoordinates.longitude
                     }))
-                    for item in nearStations {
-                        print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
-                        
-                        let annotaion = item.createAnnotaion()
-                        self.mapView.addAnnotation(annotaion)
-                    }
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
+                        for item in nearStations {
+                            print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
+                            
+                            let annotaion: MKAnnotation = item.createAnnotaion()
+                            self.mapView.addAnnotation(annotaion)
+                            print(DispatchTime.now())
+                        }
+                        showedStaions = nearStations
+//                    })
+                    
                     self.centerView(with: coordinates, region: Double(self.selectedRange.text!)!)
                 }
             case .Failure(let error as NSError):
@@ -146,17 +142,15 @@ class MainViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
-    @objc func settingsTapped() {
-        settingsOutlet.play()
-    }
-    
     @objc func goToInitialCoordinates() {
         goToMyLocation.play()
         
         
         if let location = locationManager.location {
             selectedCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            centerView(with: selectedCoordinates, region: Double(self.selectedRange.text!)!)
+            centerView(with: selectedCoordinates, region: 20)
+        } else {
+            checkLocationservices()
         }
     }
 
@@ -182,7 +176,7 @@ extension MainViewController : CLLocationManagerDelegate {
             break
         case .denied:
             self.createAlert(title: "Couldn't get your location", message: "You denied the use of location services for this app or location services are currently disabled in Settings.")
-        
+            
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
@@ -244,11 +238,14 @@ extension MainViewController: MKMapViewDelegate {
             view.calloutOffset = CGPoint(x: 0, y: 0)
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+//
+//            }
             if (annotation.title!.contains("Tesla")) {
                 view.image = UIImage(named: "superChargerPin")
-                print("\(annotation.title!) contains Tesla")
-            } else { view.image = UIImage(named: "chargerPin")
-                print("\(annotation.title!) doenst contains Tesla") }
+            } else {
+                view.image = UIImage(named: "chargerPin")
+            }
         }
         
         

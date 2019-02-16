@@ -33,8 +33,19 @@ struct ChargeStation: Codable {
         let Title: String?
     }
     
+    struct Connections: Codable {
+        let ID: Int?
+        let ConnectionType: ConnectionType?
+        
+        struct ConnectionType: Codable {
+            let Title: String?
+        }
+        
+    }
+    
     let AddressInfo: AddressInfo?
     let OperatorInfo: OperatorInfo?
+    let Connections: [Connections?]
     
     func createAnnotaion() -> ChargeStationAnnotation {
         return ChargeStationAnnotation(title: self.OperatorInfo?.Title ?? "Empty info", locationName: self.AddressInfo?.Title ?? "Empty info", coordinate: CLLocationCoordinate2D(latitude: self.AddressInfo?.Latitude ?? 0, longitude: self.AddressInfo?.Longitude ?? 0))
