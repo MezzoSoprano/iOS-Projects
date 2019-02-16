@@ -23,6 +23,10 @@
 		766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */; };
 		76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */; };
 		76C06EE721F9E26B00C61ECA /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C06EE621F9E26B00C61ECA /* MainController.swift */; };
+		76C79B8C22184CF60086E271 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B8B22184CF60086E271 /* TableViewController.swift */; };
+		76C79B8E221850DD0086E271 /* TableCellAppereance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B8D221850DD0086E271 /* TableCellAppereance.swift */; };
+		76C79B9122185FA30086E271 /* ThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B9022185FA30086E271 /* ThemeProtocol.swift */; };
+		76C79B9322185FC00086E271 /* LightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B9222185FC00086E271 /* LightTheme.swift */; };
 		76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */; };
 		CDE3F8172478C6DC676EC649 /* Pods_ChargeMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */; };
 /* End PBXBuildFile section */
@@ -47,6 +51,10 @@
 		766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStationChargerManager.swift; sourceTree = "<group>"; };
 		76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		76C06EE621F9E26B00C61ECA /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		76C79B8B22184CF60086E271 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		76C79B8D221850DD0086E271 /* TableCellAppereance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellAppereance.swift; sourceTree = "<group>"; };
+		76C79B9022185FA30086E271 /* ThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeProtocol.swift; sourceTree = "<group>"; };
+		76C79B9222185FC00086E271 /* LightTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
 		76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBD70A9C74A0E95AF1FF4A5 /* Pods-ChargeMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeMe.release.xcconfig"; path = "Target Support Files/Pods-ChargeMe/Pods-ChargeMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,7 +152,10 @@
 		7652FF9421F3543A007D41C5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				76C79B8F22185F7B0086E271 /* Theme */,
 				7652FF7E21F34EDC007D41C5 /* MainViewController.swift */,
+				76C79B8B22184CF60086E271 /* TableViewController.swift */,
+				76C79B8D221850DD0086E271 /* TableCellAppereance.swift */,
 				7652FF8021F34EDC007D41C5 /* Main.storyboard */,
 				7652FF8821F34EDD007D41C5 /* LaunchScreen.storyboard */,
 			);
@@ -167,6 +178,15 @@
 				766FA1CC21F524A5003030F0 /* NetworkError.swift */,
 			);
 			path = ErrorManager;
+			sourceTree = "<group>";
+		};
+		76C79B8F22185F7B0086E271 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				76C79B9022185FA30086E271 /* ThemeProtocol.swift */,
+				76C79B9222185FC00086E271 /* LightTheme.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		76FA7B1521F7462E000C41A2 /* Extensions */ = {
@@ -310,10 +330,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76C79B9122185FA30086E271 /* ThemeProtocol.swift in Sources */,
 				761AD8FB21F53EB500799AFE /* ChargeStation.swift in Sources */,
 				766FA1CB21F51040003030F0 /* APIManager.swift in Sources */,
+				76C79B8C22184CF60086E271 /* TableViewController.swift in Sources */,
 				76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */,
 				76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */,
+				76C79B9322185FC00086E271 /* LightTheme.swift in Sources */,
 				76C06EE721F9E26B00C61ECA /* MainController.swift in Sources */,
 				7652FF8521F34EDC007D41C5 /* ChargeMe.xcdatamodeld in Sources */,
 				766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */,
@@ -321,6 +344,7 @@
 				7652FF7D21F34EDC007D41C5 /* AppDelegate.swift in Sources */,
 				7657402921F8B7AA00B4D4CD /* UIColorExtension.swift in Sources */,
 				766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */,
+				76C79B8E221850DD0086E271 /* TableCellAppereance.swift in Sources */,
 				7623DB8C21F73A6300E40D9A /* Coordinates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

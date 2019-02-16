@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GdS-LD-EC8">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,20 +14,20 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="ChargeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6r-rw-Zi7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Qnz-Xx-2GM"/>
                                 </connections>
                             </mapView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="mOj-mz-n8Z">
-                                <rect key="frame" x="5" y="30" width="365" height="40"/>
+                                <rect key="frame" x="5" y="30" width="404" height="40"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="0.0" maxValue="500" translatesAutoresizingMaskIntoConstraints="NO" id="zwb-4c-XlH">
-                                        <rect key="frame" x="-2" y="0.0" width="263" height="41"/>
+                                        <rect key="frame" x="-2" y="0.0" width="302" height="41"/>
                                         <color key="minimumTrackTintColor" red="0.49803921568627452" green="0.70980392156862748" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="maximumTrackTintColor" red="0.47450980392156861" green="0.84046946717697413" blue="0.86477485505623575" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
@@ -35,23 +35,23 @@
                                         </connections>
                                     </slider>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77g-FQ-iE5">
-                                        <rect key="frame" x="272" y="0.0" width="40" height="40"/>
+                                        <rect key="frame" x="311" y="0.0" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="LZL-uv-Qxj"/>
                                             <constraint firstAttribute="width" constant="40" id="yl5-IK-aUp"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="icons8-sync-100-2"/>
+                                        <state key="normal" title="Button" image="refresh"/>
                                         <connections>
                                             <action selector="refreshTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vDg-M1-gCz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hi-ZN-q2z">
-                                        <rect key="frame" x="325" y="0.0" width="40" height="40"/>
+                                        <rect key="frame" x="364" y="0.0" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Gr3-On-3rd"/>
                                             <constraint firstAttribute="width" constant="40" id="RxY-DX-3wK"/>
                                         </constraints>
-                                        <state key="normal" image="icons8-search-100"/>
+                                        <state key="normal" image="icons8-search"/>
                                         <connections>
                                             <action selector="seartchTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5nl-nX-bXI"/>
                                         </connections>
@@ -62,7 +62,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UI7-jl-2Cu">
-                                <rect key="frame" x="14" y="70" width="17" height="20"/>
+                                <rect key="frame" x="14" y="70" width="17" height="19.666666666666671"/>
                                 <attributedString key="attributedText">
                                     <fragment content="20">
                                         <attributes>
@@ -75,18 +75,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kJY-mu-K0g" customClass="LOTAnimationView">
-                                <rect key="frame" x="320" y="607" width="40" height="40"/>
+                                <rect key="frame" x="359" y="627" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="7ic-01-Xra"/>
                                     <constraint firstAttribute="height" constant="40" id="Lqz-RT-wx9"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2l-Tz-wIl" customClass="LOTAnimationView">
-                                <rect key="frame" x="15" y="589" width="60" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="bnb-ei-mpl"/>
-                                    <constraint firstAttribute="width" constant="60" id="zIO-JX-fcR"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                             </button>
@@ -96,9 +88,7 @@
                             <constraint firstItem="c6r-rw-Zi7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0qX-o5-Puv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mOj-mz-n8Z" secondAttribute="trailing" constant="5" id="14t-RL-Eo7"/>
                             <constraint firstItem="c6r-rw-Zi7" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="6DZ-TM-jh7"/>
-                            <constraint firstItem="z2l-Tz-wIl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="EIS-Ja-7bW"/>
                             <constraint firstItem="mOj-mz-n8Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="EbI-eU-N6z"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="z2l-Tz-wIl" secondAttribute="bottom" constant="18" id="QUM-fC-tKr"/>
                             <constraint firstItem="UI7-jl-2Cu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="14" id="UnJ-6q-a6R"/>
                             <constraint firstItem="UI7-jl-2Cu" firstAttribute="top" secondItem="mOj-mz-n8Z" secondAttribute="bottom" id="Zsh-IL-enU"/>
                             <constraint firstAttribute="bottom" secondItem="c6r-rw-Zi7" secondAttribute="bottom" id="g5A-7F-ju1"/>
@@ -109,24 +99,90 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" image="mapBarItem" id="j0X-bw-WKb">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
+                    </tabBarItem>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="goToMyLocation" destination="kJY-mu-K0g" id="jbJ-2F-xjr"/>
                         <outlet property="mapView" destination="c6r-rw-Zi7" id="92u-Ja-i7a"/>
                         <outlet property="refreshOutlet" destination="77g-FQ-iE5" id="Spu-FE-WiL"/>
                         <outlet property="searchOutlet" destination="2hi-ZN-q2z" id="42p-Th-169"/>
                         <outlet property="selectedRange" destination="UI7-jl-2Cu" id="Dzr-AY-M8j"/>
-                        <outlet property="settingsOutlet" destination="z2l-Tz-wIl" id="dUQ-kj-Jk2"/>
                         <outlet property="sliderOutlet" destination="zwb-4c-XlH" id="QmR-sQ-ibY"/>
                         <outlet property="topStackView" destination="mOj-mz-n8Z" id="hY7-u0-orI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
+            <point key="canvasLocation" x="796" y="-702"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="mgt-ub-vNk">
+            <objects>
+                <viewController id="Hvu-nP-ytF" customClass="TableViewController" customModule="ChargeMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="knT-c4-vxG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="0dn-h2-85a"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="listt" id="a5b-pY-gXi">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lQT-gp-oWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="796" y="5"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="oiU-73-iHa">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="GdS-LD-EC8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PYB-d4-DRI">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Hvu-nP-ytF" kind="relationship" relationship="viewControllers" id="Lio-iv-0TX"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="2nV-jT-5De"/>
+                        <segue destination="rDl-78-B0B" kind="relationship" relationship="viewControllers" id="UVN-oo-bH4"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kyb-l0-vZz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-125" y="5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="AK7-eT-4qx">
+            <objects>
+                <viewController id="rDl-78-B0B" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Wyy-fd-Sq9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="7A5-hQ-jHv"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="settings1" landscapeImage="settings1" largeContentSizeImage="settings1" id="HIo-Xz-6Xi">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nXb-lm-Wpm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="796" y="761"/>
         </scene>
     </scenes>
     <resources>
-        <image name="icons8-search-100" width="180" height="180"/>
-        <image name="icons8-sync-100-2" width="180" height="180"/>
+        <image name="icons8-search" width="100" height="100"/>
+        <image name="listt" width="25" height="26"/>
+        <image name="mapBarItem" width="25" height="25"/>
+        <image name="refresh" width="300" height="300"/>
+        <image name="settings1" width="25" height="26"/>
     </resources>
 </document>
