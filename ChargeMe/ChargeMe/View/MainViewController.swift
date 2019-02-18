@@ -22,6 +22,20 @@ class MainViewController: UIViewController {
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var goToMyLocation: LOTAnimationView!
     
+    @IBAction func longMapPressed(_ sender: UILongPressGestureRecognizer) {
+        
+        let location = sender.location(in: mapView)
+        let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
+        
+        //creating pin
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)
+        self.selectedCoordinates = coordinate
+        self.mapView.addAnnotation(annotation)
+        
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+    }
+    
     let tableAutocomplete = UITableView()
     
     var searchCompleter = MKLocalSearchCompleter()
@@ -70,9 +84,7 @@ class MainViewController: UIViewController {
         
         refreshOutlet.setLightShadow()
         searchOutlet.setLightShadow()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        
         checkLocationservices()
         
         if locationManager.location != nil {
@@ -80,6 +92,11 @@ class MainViewController: UIViewController {
         }
         
         self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
     
     func showStations(near coordinates: CLLocationCoordinate2D, distance: Double) {
@@ -89,7 +106,7 @@ class MainViewController: UIViewController {
             case .Success(let nearStations):
                 
                 if nearStations.count == 0 {
-                    self.createAlert(title: "Couldn't find charge stations", message: "Sorry, there ara no any charge stations near you with distance \(distance) km")
+                    self.createAlert(title: "Couldn't find charge stations", message: "Sorry, there ara no any charge stations near selected region with distance \(distance) km")
                     self.centerView(with: coordinates, region: Double(self.selectedRange.text!)!)
                 } else {
                     print(nearStations.count)
@@ -98,11 +115,11 @@ class MainViewController: UIViewController {
                     }))
 //                    DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
                         for item in nearStations {
-                            print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
+//                            print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
                             
                             let annotaion: MKAnnotation = item.createAnnotaion()
                             self.mapView.addAnnotation(annotaion)
-                            print(DispatchTime.now())
+//                            print(DispatchTime.now())
                         }
                         showedStaions = nearStations
 //                    })
@@ -294,17 +311,17 @@ extension MainViewController: MKMapViewDelegate {
         self.goButton.removeFromSuperview()
     }
     
+    
     @objc func goButtonPressed(sender: Any) {
         
-        if selectedAnnotation != nil {
-            let location = selectedAnnotation!.annotation as! ChargeStationAnnotation
+        if selectedAnnotation != nil, let location = selectedAnnotation!.annotation as? ChargeStationAnnotation {
             let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
             location.mapItem().openInMaps(launchOptions: launchOptions)
+            
         } else {
             createAlert(title: "Couldn't build the  route", message: "Sorry, we couldn't build this route")
         }
     }
-    
 }
 
 extension MainViewController: UISearchBarDelegate {

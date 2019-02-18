@@ -48,7 +48,20 @@ struct ChargeStation: Codable {
     let Connections: [Connections?]
     
     func createAnnotaion() -> ChargeStationAnnotation {
-        return ChargeStationAnnotation(title: self.OperatorInfo?.Title ?? "Empty info", locationName: self.AddressInfo?.Title ?? "Empty info", coordinate: CLLocationCoordinate2D(latitude: self.AddressInfo?.Latitude ?? 0, longitude: self.AddressInfo?.Longitude ?? 0))
+        
+        var str = ""
+        
+        if self.Connections.count > 0 {
+            for item in  self.Connections {
+                if item?.ConnectionType?.Title ==  self.Connections.last!?.ConnectionType?.Title {
+                    str += (item?.ConnectionType?.Title!)!
+                    break
+                }
+                str += (item?.ConnectionType?.Title!)! + ", "
+            }
+        }
+        
+        return ChargeStationAnnotation(title: str, locationName: self.AddressInfo?.Title ?? "Empty info", coordinate: CLLocationCoordinate2D(latitude: self.AddressInfo?.Latitude ?? 0, longitude: self.AddressInfo?.Longitude ?? 0))
     }
 }
 

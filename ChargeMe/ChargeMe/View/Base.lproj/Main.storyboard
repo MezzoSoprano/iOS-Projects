@@ -19,8 +19,10 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6r-rw-Zi7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Qnz-Xx-2GM"/>
+                                    <outletCollection property="gestureRecognizers" destination="srh-YF-yXI" appends="YES" id="xjJ-p9-dHR"/>
                                 </connections>
                             </mapView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="mOj-mz-n8Z">
@@ -115,9 +117,15 @@
                         <outlet property="selectedRange" destination="UI7-jl-2Cu" id="Dzr-AY-M8j"/>
                         <outlet property="sliderOutlet" destination="zwb-4c-XlH" id="QmR-sQ-ibY"/>
                         <outlet property="topStackView" destination="mOj-mz-n8Z" id="hY7-u0-orI"/>
+                        <segue destination="w3A-IQ-fD3" kind="show" id="CfJ-BY-MHw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="srh-YF-yXI">
+                    <connections>
+                        <action selector="longMapPressed:" destination="BYZ-38-t0r" id="4Xi-kd-kzS"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="796" y="-702"/>
         </scene>
@@ -176,6 +184,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nXb-lm-Wpm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="796" y="761"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="AmD-aX-nAB">
+            <objects>
+                <viewController id="w3A-IQ-fD3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1wP-d3-aRG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="bWv-j4-B0O"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gZr-6K-kam" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1633" y="5"/>
         </scene>
     </scenes>
     <resources>
