@@ -49,6 +49,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCellID, for: indexPath) as! tableCell
+        
         cell.nameLabel.text = showedStaions[indexPath.row].AddressInfo?.Title
         
         //govnokod
@@ -67,12 +68,13 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 
             }
             cell.distanceLabel.text = doubleStr
-        }
-        
-        
-        if let title = showedStaions[indexPath.row].OperatorInfo?.Title! {
-            if title.contains("Tesla") {
+            
+            if cell.distanceLabel.text!.contains("Tesla") {
                 cell.pictureImageView.image = UIImage(named: "superChargerPin")
+            } else if cell.distanceLabel.text!.contains("CHAdeMO") {
+                cell.pictureImageView.image = UIImage(named: "chademoChargerPin")
+            } else {
+                cell.pictureImageView.image = UIImage(named: "chargerPin")
             }
         }
         

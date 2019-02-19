@@ -85,6 +85,9 @@ class MainViewController: UIViewController {
         refreshOutlet.setLightShadow()
         searchOutlet.setLightShadow()
         
+        //getting the slider released method
+        self.sliderOutlet.addTarget(self, action: #selector(rangeRealesed), for: .touchUpInside)
+        
         checkLocationservices()
         
         if locationManager.location != nil {
@@ -170,7 +173,12 @@ class MainViewController: UIViewController {
             checkLocationservices()
         }
     }
-
+    
+    @objc func rangeRealesed() {
+        rotateAnimation(view: refreshOutlet)
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+    }
+    
     @IBAction func refreshTapped(_ sender: Any) {
         rotateAnimation(view: refreshOutlet)
         self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
@@ -254,18 +262,15 @@ extension MainViewController: MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: 0, y: 0)
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-//
-//            }
-            if (annotation.title!.contains("Tesla")) {
-                view.image = UIImage(named: "superChargerPin")
-            } else {
-                view.image = UIImage(named: "chargerPin")
-            }
         }
         
-        
+        if (annotation.title!.contains("Tesla")) {
+            view.image = UIImage(named: "superChargerPin")
+        } else if (annotation.title!.contains("CHAdeMO")) {
+            view.image = UIImage(named: "chademoChargerPin")
+        } else {
+            view.image = UIImage(named: "chargerPin")
+        }
         
         return view
     }
