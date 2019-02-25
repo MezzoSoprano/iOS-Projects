@@ -29,8 +29,10 @@ struct ChargeStation: Codable {
     }
     
     struct OperatorInfo: Codable {
-        let WebsiteURL: String?
         let Title: String?
+        let WebsiteURL: String?
+        let PhonePrimaryContact: String?
+        let ContactEmail: String?
     }
     
     struct Connections: Codable {
@@ -40,9 +42,14 @@ struct ChargeStation: Codable {
         struct ConnectionType: Codable {
             let Title: String?
         }
-        
     }
     
+    struct MediaItems: Codable {
+        let ItemThumbnailURL: String?
+        let ItemURL: String?
+    }
+    
+    let MediaItems: [MediaItems?]?
     let AddressInfo: AddressInfo?
     let OperatorInfo: OperatorInfo?
     let Connections: [Connections?]

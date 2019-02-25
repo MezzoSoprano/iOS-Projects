@@ -21,20 +21,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var sliderOutlet: UISlider!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var goToMyLocation: LOTAnimationView!
-    
-    @IBAction func longMapPressed(_ sender: UILongPressGestureRecognizer) {
-        
-        let location = sender.location(in: mapView)
-        let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
-        
-        //creating pin
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)
-        self.selectedCoordinates = coordinate
-        self.mapView.addAnnotation(annotation)
-        
-        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
-    }
+    @IBOutlet var longPressOutlet: UILongPressGestureRecognizer!
     
     let tableAutocomplete = UITableView()
     
@@ -95,11 +82,14 @@ class MainViewController: UIViewController {
         }
         
         self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     func showStations(near coordinates: CLLocationCoordinate2D, distance: Double) {
@@ -116,7 +106,6 @@ class MainViewController: UIViewController {
                     
                     self.mapView.removeAnnotations(self.mapView.annotations.filter({ $0.coordinate.latitude != self.selectedCoordinates.latitude && $0.coordinate.longitude != self.selectedCoordinates.longitude
                     }))
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
                         for item in nearStations {
 //                            print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
                             
@@ -125,8 +114,6 @@ class MainViewController: UIViewController {
 //                            print(DispatchTime.now())
                         }
                         showedStaions = nearStations
-//                    })
-                    
                     self.centerView(with: coordinates, region: Double(self.selectedRange.text!)!)
                 }
             case .Failure(let error as NSError):
@@ -146,13 +133,14 @@ class MainViewController: UIViewController {
             self.refreshOutlet.layer.removeAllAnimations()
             self.refreshOutlet.isEnabled = true
             self.searchOutlet.isEnabled = true
+            self.longPressOutlet.isEnabled = true
         }
         
+        self.longPressOutlet.isEnabled = false
         self.refreshOutlet.isEnabled = false
         self.searchOutlet.isEnabled = false
         self.progressIndicator.center = self.view.center
         self.progressIndicator.startAnimating()
-        
         self.view.addSubview(progressIndicator)
     }
     
@@ -162,6 +150,15 @@ class MainViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is CharherInfoViewController {
+            let vc = segue.destination as? CharherInfoViewController
+            
+            if let sa = selectedAnnotation {
+                vc?.receivedStaion = showedStaions.first(where: { $0.AddressInfo?.Latitude == sa.annotation?.coordinate.latitude && $0.AddressInfo?.Longitude == sa.annotation?.coordinate.longitude})
+            }
+        }
+    }
     @objc func goToInitialCoordinates() {
         goToMyLocation.play()
         
@@ -186,6 +183,20 @@ class MainViewController: UIViewController {
     
     @IBAction func rangeChanged(_ sender: UISlider) {
         selectedRange.text = String(Int(sender.value))
+    }
+    
+    @IBAction func longMapPressed(_ sender: UILongPressGestureRecognizer) {
+        
+        let location = sender.location(in: mapView)
+        let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
+        
+        //creating pin
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)
+        self.selectedCoordinates = coordinate
+        self.mapView.addAnnotation(annotation)
+        
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
     }
     
 }
@@ -278,7 +289,6 @@ extension MainViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         self.selectedAnnotation = view
-        
         if let myLocation = locationManager.location?.coordinate {
             if selectedAnnotation?.annotation?.coordinate.latitude == myLocation.latitude && selectedAnnotation?.annotation?.coordinate.longitude == myLocation.longitude {
                 return
@@ -286,7 +296,6 @@ extension MainViewController: MKMapViewDelegate {
         }
         
         //go button configuration
-        
         self.goButton.backgroundColor = .darkGray
         self.view.addSubview(goButton)
         NSLayoutConstraint.activate([
@@ -316,7 +325,9 @@ extension MainViewController: MKMapViewDelegate {
         self.goButton.removeFromSuperview()
     }
     
-    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        self.performSegue(withIdentifier: "swgueToInfo", sender: nil)
+    }
     @objc func goButtonPressed(sender: Any) {
         
         if selectedAnnotation != nil, let location = selectedAnnotation!.annotation as? ChargeStationAnnotation {

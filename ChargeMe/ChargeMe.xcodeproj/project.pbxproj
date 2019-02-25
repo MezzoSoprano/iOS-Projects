@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76197CDC221EC818004D20BA /* SocketViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76197CDB221EC818004D20BA /* SocketViewCell.swift */; };
 		761AD8FB21F53EB500799AFE /* ChargeStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761AD8FA21F53EB500799AFE /* ChargeStation.swift */; };
 		7623DB8C21F73A6300E40D9A /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7623DB8B21F73A6300E40D9A /* Coordinates.swift */; };
 		7633E29622025E2C005C4872 /* location.json in Resources */ = {isa = PBXBuildFile; fileRef = 7633E29522025E2C005C4872 /* location.json */; };
@@ -27,12 +28,14 @@
 		76C79B8E221850DD0086E271 /* TableCellAppereance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B8D221850DD0086E271 /* TableCellAppereance.swift */; };
 		76C79B9122185FA30086E271 /* ThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B9022185FA30086E271 /* ThemeProtocol.swift */; };
 		76C79B9322185FC00086E271 /* LightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B9222185FC00086E271 /* LightTheme.swift */; };
+		76CFE054221C3F6300ED2ED5 /* CharherInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CFE053221C3F6300ED2ED5 /* CharherInfoViewController.swift */; };
 		76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */; };
 		CDE3F8172478C6DC676EC649 /* Pods_ChargeMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7297AF25A9243B7139B8A462 /* Pods-ChargeMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeMe.debug.xcconfig"; path = "Target Support Files/Pods-ChargeMe/Pods-ChargeMe.debug.xcconfig"; sourceTree = "<group>"; };
+		76197CDB221EC818004D20BA /* SocketViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketViewCell.swift; sourceTree = "<group>"; };
 		761AD8FA21F53EB500799AFE /* ChargeStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStation.swift; sourceTree = "<group>"; };
 		7623DB8B21F73A6300E40D9A /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		7633E29522025E2C005C4872 /* location.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = location.json; sourceTree = "<group>"; };
@@ -55,6 +58,7 @@
 		76C79B8D221850DD0086E271 /* TableCellAppereance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellAppereance.swift; sourceTree = "<group>"; };
 		76C79B9022185FA30086E271 /* ThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeProtocol.swift; sourceTree = "<group>"; };
 		76C79B9222185FC00086E271 /* LightTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
+		76CFE053221C3F6300ED2ED5 /* CharherInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharherInfoViewController.swift; sourceTree = "<group>"; };
 		76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBD70A9C74A0E95AF1FF4A5 /* Pods-ChargeMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeMe.release.xcconfig"; path = "Target Support Files/Pods-ChargeMe/Pods-ChargeMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -155,7 +159,9 @@
 				76C79B8F22185F7B0086E271 /* Theme */,
 				7652FF7E21F34EDC007D41C5 /* MainViewController.swift */,
 				76C79B8B22184CF60086E271 /* TableViewController.swift */,
+				76CFE053221C3F6300ED2ED5 /* CharherInfoViewController.swift */,
 				76C79B8D221850DD0086E271 /* TableCellAppereance.swift */,
+				76197CDB221EC818004D20BA /* SocketViewCell.swift */,
 				7652FF8021F34EDC007D41C5 /* Main.storyboard */,
 				7652FF8821F34EDD007D41C5 /* LaunchScreen.storyboard */,
 			);
@@ -310,13 +316,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ChargeMe/Pods-ChargeMe-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Auk/Auk.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+				"${BUILT_PRODUCTS_DIR}/moa/moa.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auk.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/moa.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -345,7 +355,9 @@
 				7657402921F8B7AA00B4D4CD /* UIColorExtension.swift in Sources */,
 				766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */,
 				76C79B8E221850DD0086E271 /* TableCellAppereance.swift in Sources */,
+				76CFE054221C3F6300ED2ED5 /* CharherInfoViewController.swift in Sources */,
 				7623DB8C21F73A6300E40D9A /* Coordinates.swift in Sources */,
+				76197CDC221EC818004D20BA /* SocketViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

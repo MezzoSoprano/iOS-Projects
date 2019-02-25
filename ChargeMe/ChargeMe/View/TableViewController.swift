@@ -32,8 +32,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = LightTheme.background
-        //        tableView.separatorStyle = .none
-        //        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         
         //constarints adding
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +78,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     
 }

@@ -22,7 +22,6 @@ class tableCell: UITableViewCell, UITextFieldDelegate {
         iv.contentMode = .scaleAspectFit
         iv.layer.cornerRadius = 20
         iv.clipsToBounds = false
-//        iv.image = UIImage(named: "chargerPin")
         return iv
     }()
     
