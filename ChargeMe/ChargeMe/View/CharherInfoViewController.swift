@@ -23,7 +23,7 @@ class CharherInfoViewController: UIViewController {
     @IBOutlet weak var contactWebSiteLabel: UILabel!
     
     let images: [UIImage] = [UIImage(named: "type1")!, UIImage(named: "type2")!]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,13 +51,13 @@ class CharherInfoViewController: UIViewController {
             self.contactPhoneLabel.text = receivedStaion?.OperatorInfo?.PhonePrimaryContact
             self.contactWebSiteLabel.text = receivedStaion?.OperatorInfo?.WebsiteURL
             
-            chargerPhotos.auk.settings.contentMode = UIView.ContentMode.scaleAspectFill
-            chargerPhotos.auk.settings.placeholderImage = UIImage(named: "noPicture")
+            self.chargerPhotos.auk.settings.contentMode = UIView.ContentMode.scaleAspectFill
+            self.chargerPhotos.auk.settings.placeholderImage = UIImage(named: "noPicture")
             if let medItems = station.MediaItems {
                 for item in medItems {
                     if let imageUrl = item?.ItemThumbnailURL {
-                        chargerPhotos.auk.settings.placeholderImage = UIImage(named: "waitingImage")
-                        chargerPhotos.auk.show(url: imageUrl)
+                        self.chargerPhotos.auk.settings.placeholderImage = UIImage(named: "waitingImage")
+                        self.chargerPhotos.auk.show(url: imageUrl)
                     }
                 }
             }
@@ -68,9 +68,10 @@ class CharherInfoViewController: UIViewController {
 extension CharherInfoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let types = receivedStaion?.Connections {
+        if let types = self.receivedStaion?.Connections {
             return types.count
         }
+        
         return 0
     }
     
@@ -93,7 +94,26 @@ extension CharherInfoViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.typeImage.image = UIImage(named: "chademo")
             }
         }
+        
         return cell
         
     }
+    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        
+        print("takoe")
+        if let focusedView = context.nextFocusedView as? UICollectionViewCell {
+            
+            print("uzhe luchz")
+            self.socketCollectionView.isScrollEnabled = false
+            let indexPath = socketCollectionView.indexPath(for: focusedView)!
+            self.socketCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        self.socketCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+    
 }

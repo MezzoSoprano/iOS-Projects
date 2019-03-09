@@ -23,7 +23,6 @@
 		766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CC21F524A5003030F0 /* NetworkError.swift */; };
 		766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */; };
 		76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */; };
-		76C06EE721F9E26B00C61ECA /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C06EE621F9E26B00C61ECA /* MainController.swift */; };
 		76C79B8C22184CF60086E271 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B8B22184CF60086E271 /* TableViewController.swift */; };
 		76C79B8E221850DD0086E271 /* TableCellAppereance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B8D221850DD0086E271 /* TableCellAppereance.swift */; };
 		76C79B9122185FA30086E271 /* ThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B9022185FA30086E271 /* ThemeProtocol.swift */; };
@@ -53,7 +52,6 @@
 		766FA1CC21F524A5003030F0 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStationChargerManager.swift; sourceTree = "<group>"; };
 		76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		76C06EE621F9E26B00C61ECA /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		76C79B8B22184CF60086E271 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		76C79B8D221850DD0086E271 /* TableCellAppereance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellAppereance.swift; sourceTree = "<group>"; };
 		76C79B9022185FA30086E271 /* ThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeProtocol.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */,
-				76C06EE621F9E26B00C61ECA /* MainController.swift */,
 				7652FF7C21F34EDC007D41C5 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -347,7 +344,6 @@
 				76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */,
 				76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */,
 				76C79B9322185FC00086E271 /* LightTheme.swift in Sources */,
-				76C06EE721F9E26B00C61ECA /* MainController.swift in Sources */,
 				7652FF8521F34EDC007D41C5 /* ChargeMe.xcdatamodeld in Sources */,
 				766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */,
 				7652FF7F21F34EDC007D41C5 /* MainViewController.swift in Sources */,

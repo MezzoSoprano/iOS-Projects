@@ -79,8 +79,4 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
 }

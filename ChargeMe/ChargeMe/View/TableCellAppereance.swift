@@ -63,7 +63,6 @@ class tableCell: UITableViewCell, UITextFieldDelegate {
         pictureImageView.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
         
         //name label constraits
-//        nameLabel.centerXAnchor.constraint(equalTo: textView.centerXAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -10).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: pictureImageView.rightAnchor, constant: 10).isActive = true
@@ -74,7 +73,7 @@ class tableCell: UITableViewCell, UITextFieldDelegate {
         distanceLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 35).isActive = true
         distanceLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10).isActive = true
         distanceLabel.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -10).isActive = true
-//        distanceLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        //        distanceLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

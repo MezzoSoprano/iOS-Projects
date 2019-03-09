@@ -38,6 +38,7 @@ class MainViewController: UIViewController {
         gb.setShadow()
         return gb
     }()
+    
     var progressIndicator: UIActivityIndicatorView = {
         let pi = UIActivityIndicatorView(style: .whiteLarge)
         pi.color = UIColor(r: 127, g: 181, b: 181)
@@ -106,14 +107,13 @@ class MainViewController: UIViewController {
                     
                     self.mapView.removeAnnotations(self.mapView.annotations.filter({ $0.coordinate.latitude != self.selectedCoordinates.latitude && $0.coordinate.longitude != self.selectedCoordinates.longitude
                     }))
-                        for item in nearStations {
-//                            print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
-                            
-                            let annotaion: MKAnnotation = item.createAnnotaion()
-                            self.mapView.addAnnotation(annotaion)
-//                            print(DispatchTime.now())
-                        }
-                        showedStaions = nearStations
+                    for item in nearStations {
+                        
+                        let annotaion: MKAnnotation = item.createAnnotaion()
+                        self.mapView.addAnnotation(annotaion)
+                        
+                    }
+                    showedStaions = nearStations
                     self.centerView(with: coordinates, region: Double(self.selectedRange.text!)!)
                 }
             case .Failure(let error as NSError):
@@ -247,13 +247,6 @@ extension MainViewController : CLLocationManagerDelegate {
         } else { print("Couldnt get location!")}
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //        guard let location = locations.last else { return }
-        //        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        //        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        //        mapView.setRegion(region, animated: true)
-    }
-    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
@@ -343,7 +336,7 @@ extension MainViewController: MKMapViewDelegate {
 extension MainViewController: UISearchBarDelegate {
     
     @IBAction func seartchTapped(_ sender: Any) {
-
+        
         searchOutlet.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 0.2,
                        delay: 0,
@@ -352,7 +345,7 @@ extension MainViewController: UISearchBarDelegate {
                        options: .allowUserInteraction,
                        animations: {
                         self.searchOutlet.transform = .identity
-                
+                        
         }) { (isFinished) in
             UIView.animate(withDuration: 0.5, animations: {
                 self.showStackView(bool: false)
@@ -403,7 +396,7 @@ extension MainViewController: UISearchBarDelegate {
                 
                 //Create annotation
                 let annotation = MKPointAnnotation()
-
+                
                 annotation.title = response?.mapItems[0].name
                 annotation.coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
                 self.selectedCoordinates = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
@@ -421,7 +414,7 @@ extension MainViewController: UISearchBarDelegate {
         
         //table view presenting
         self.view.addSubview(self.tableAutocomplete)
-
+        
         self.tableAutocomplete.dataSource = self
         self.tableAutocomplete.delegate = self
         self.tableAutocomplete.backgroundColor = .clear
@@ -488,7 +481,7 @@ extension MainViewController: UITableViewDataSource {
         }
         return attributedText
     }
-
+    
 }
 
 extension MainViewController: UITableViewDelegate {
