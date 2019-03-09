@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var sliderOutlet: UISlider!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var goToMyLocation: LOTAnimationView!
+    @IBOutlet var longPressOutlet: UILongPressGestureRecognizer!
     
     let tableAutocomplete = UITableView()
     
@@ -37,6 +38,7 @@ class MainViewController: UIViewController {
         gb.setShadow()
         return gb
     }()
+    
     var progressIndicator: UIActivityIndicatorView = {
         let pi = UIActivityIndicatorView(style: .whiteLarge)
         pi.color = UIColor(r: 127, g: 181, b: 181)
@@ -70,9 +72,10 @@ class MainViewController: UIViewController {
         
         refreshOutlet.setLightShadow()
         searchOutlet.setLightShadow()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        
+        //getting the slider released method
+        self.sliderOutlet.addTarget(self, action: #selector(rangeRealesed), for: .touchUpInside)
+        
         checkLocationservices()
         
         if locationManager.location != nil {
@@ -82,6 +85,14 @@ class MainViewController: UIViewController {
         self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     func showStations(near coordinates: CLLocationCoordinate2D, distance: Double) {
         stationManager.fetchStationsWith(coordinates: coordinates, radius: distance) { (result) in
             
@@ -89,24 +100,20 @@ class MainViewController: UIViewController {
             case .Success(let nearStations):
                 
                 if nearStations.count == 0 {
-                    self.createAlert(title: "Couldn't find charge stations", message: "Sorry, there ara no any charge stations near you with distance \(distance) km")
+                    self.createAlert(title: "Couldn't find charge stations", message: "Sorry, there ara no any charge stations near selected region with distance \(distance) km")
                     self.centerView(with: coordinates, region: Double(self.selectedRange.text!)!)
                 } else {
                     print(nearStations.count)
                     
                     self.mapView.removeAnnotations(self.mapView.annotations.filter({ $0.coordinate.latitude != self.selectedCoordinates.latitude && $0.coordinate.longitude != self.selectedCoordinates.longitude
                     }))
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
-                        for item in nearStations {
-                            print("\(item.ID ?? 1) + \(item.GeneralComments ?? "null") + \(item.OperatorInfo?.Title ?? "null")")
-                            
-                            let annotaion: MKAnnotation = item.createAnnotaion()
-                            self.mapView.addAnnotation(annotaion)
-                            print(DispatchTime.now())
-                        }
-                        showedStaions = nearStations
-//                    })
-                    
+                    for item in nearStations {
+                        
+                        let annotaion: MKAnnotation = item.createAnnotaion()
+                        self.mapView.addAnnotation(annotaion)
+                        
+                    }
+                    showedStaions = nearStations
                     self.centerView(with: coordinates, region: Double(self.selectedRange.text!)!)
                 }
             case .Failure(let error as NSError):
@@ -126,13 +133,14 @@ class MainViewController: UIViewController {
             self.refreshOutlet.layer.removeAllAnimations()
             self.refreshOutlet.isEnabled = true
             self.searchOutlet.isEnabled = true
+            self.longPressOutlet.isEnabled = true
         }
         
+        self.longPressOutlet.isEnabled = false
         self.refreshOutlet.isEnabled = false
         self.searchOutlet.isEnabled = false
         self.progressIndicator.center = self.view.center
         self.progressIndicator.startAnimating()
-        
         self.view.addSubview(progressIndicator)
     }
     
@@ -142,6 +150,15 @@ class MainViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is CharherInfoViewController {
+            let vc = segue.destination as? CharherInfoViewController
+            
+            if let sa = selectedAnnotation {
+                vc?.receivedStaion = showedStaions.first(where: { $0.AddressInfo?.Latitude == sa.annotation?.coordinate.latitude && $0.AddressInfo?.Longitude == sa.annotation?.coordinate.longitude})
+            }
+        }
+    }
     @objc func goToInitialCoordinates() {
         goToMyLocation.play()
         
@@ -153,7 +170,12 @@ class MainViewController: UIViewController {
             checkLocationservices()
         }
     }
-
+    
+    @objc func rangeRealesed() {
+        rotateAnimation(view: refreshOutlet)
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+    }
+    
     @IBAction func refreshTapped(_ sender: Any) {
         rotateAnimation(view: refreshOutlet)
         self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
@@ -161,6 +183,20 @@ class MainViewController: UIViewController {
     
     @IBAction func rangeChanged(_ sender: UISlider) {
         selectedRange.text = String(Int(sender.value))
+    }
+    
+    @IBAction func longMapPressed(_ sender: UILongPressGestureRecognizer) {
+        
+        let location = sender.location(in: mapView)
+        let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
+        
+        //creating pin
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)
+        self.selectedCoordinates = coordinate
+        self.mapView.addAnnotation(annotation)
+        
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
     }
     
 }
@@ -211,13 +247,6 @@ extension MainViewController : CLLocationManagerDelegate {
         } else { print("Couldnt get location!")}
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //        guard let location = locations.last else { return }
-        //        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        //        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        //        mapView.setRegion(region, animated: true)
-    }
-    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
@@ -237,18 +266,15 @@ extension MainViewController: MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: 0, y: 0)
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-//
-//            }
-            if (annotation.title!.contains("Tesla")) {
-                view.image = UIImage(named: "superChargerPin")
-            } else {
-                view.image = UIImage(named: "chargerPin")
-            }
         }
         
-        
+        if (annotation.title!.contains("Tesla")) {
+            view.image = UIImage(named: "superChargerPin")
+        } else if (annotation.title!.contains("CHAdeMO")) {
+            view.image = UIImage(named: "chademoChargerPin")
+        } else {
+            view.image = UIImage(named: "chargerPin")
+        }
         
         return view
     }
@@ -256,7 +282,6 @@ extension MainViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         self.selectedAnnotation = view
-        
         if let myLocation = locationManager.location?.coordinate {
             if selectedAnnotation?.annotation?.coordinate.latitude == myLocation.latitude && selectedAnnotation?.annotation?.coordinate.longitude == myLocation.longitude {
                 return
@@ -264,7 +289,6 @@ extension MainViewController: MKMapViewDelegate {
         }
         
         //go button configuration
-        
         self.goButton.backgroundColor = .darkGray
         self.view.addSubview(goButton)
         NSLayoutConstraint.activate([
@@ -294,23 +318,25 @@ extension MainViewController: MKMapViewDelegate {
         self.goButton.removeFromSuperview()
     }
     
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        self.performSegue(withIdentifier: "swgueToInfo", sender: nil)
+    }
     @objc func goButtonPressed(sender: Any) {
         
-        if selectedAnnotation != nil {
-            let location = selectedAnnotation!.annotation as! ChargeStationAnnotation
+        if selectedAnnotation != nil, let location = selectedAnnotation!.annotation as? ChargeStationAnnotation {
             let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
             location.mapItem().openInMaps(launchOptions: launchOptions)
+            
         } else {
             createAlert(title: "Couldn't build the  route", message: "Sorry, we couldn't build this route")
         }
     }
-    
 }
 
 extension MainViewController: UISearchBarDelegate {
     
     @IBAction func seartchTapped(_ sender: Any) {
-
+        
         searchOutlet.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 0.2,
                        delay: 0,
@@ -319,7 +345,7 @@ extension MainViewController: UISearchBarDelegate {
                        options: .allowUserInteraction,
                        animations: {
                         self.searchOutlet.transform = .identity
-                
+                        
         }) { (isFinished) in
             UIView.animate(withDuration: 0.5, animations: {
                 self.showStackView(bool: false)
@@ -370,7 +396,7 @@ extension MainViewController: UISearchBarDelegate {
                 
                 //Create annotation
                 let annotation = MKPointAnnotation()
-
+                
                 annotation.title = response?.mapItems[0].name
                 annotation.coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
                 self.selectedCoordinates = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
@@ -388,7 +414,7 @@ extension MainViewController: UISearchBarDelegate {
         
         //table view presenting
         self.view.addSubview(self.tableAutocomplete)
-
+        
         self.tableAutocomplete.dataSource = self
         self.tableAutocomplete.delegate = self
         self.tableAutocomplete.backgroundColor = .clear
@@ -455,7 +481,7 @@ extension MainViewController: UITableViewDataSource {
         }
         return attributedText
     }
-
+    
 }
 
 extension MainViewController: UITableViewDelegate {

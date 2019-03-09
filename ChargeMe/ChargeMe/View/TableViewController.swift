@@ -32,8 +32,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = LightTheme.background
-//        tableView.separatorStyle = .none
-//        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         
         //constarints adding
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,23 +47,36 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCellID, for: indexPath) as! tableCell
+        
         cell.nameLabel.text = showedStaions[indexPath.row].AddressInfo?.Title
         
+        //govnokod
         if let distance = showedStaions[indexPath.row].AddressInfo?.Distance {
             var doubleStr = String(format: "%.2f", distance)
-            doubleStr += " km, "
+            doubleStr += " km"
             if showedStaions[indexPath.row].Connections.count > 0 {
-                doubleStr += (showedStaions[indexPath.row].Connections[0]?.ConnectionType?.Title ?? "Empty info")
+                doubleStr += ", "
+                for item in showedStaions[indexPath.row].Connections {
+                    if item?.ConnectionType?.Title == showedStaions[indexPath.row].Connections.last!?.ConnectionType?.Title {
+                        doubleStr += (item?.ConnectionType?.Title!)!
+                        break
+                    }
+                    doubleStr += (item?.ConnectionType?.Title!)! + ", "
+                }
+                
             }
             cell.distanceLabel.text = doubleStr
+            
+            if cell.distanceLabel.text!.contains("Tesla") {
+                cell.pictureImageView.image = UIImage(named: "superChargerPin")
+            } else if cell.distanceLabel.text!.contains("CHAdeMO") {
+                cell.pictureImageView.image = UIImage(named: "chademoChargerPin")
+            } else {
+                cell.pictureImageView.image = UIImage(named: "chargerPin")
+            }
         }
         
-        
-        if (showedStaions[indexPath.row].OperatorInfo?.Title?.contains("Tesla"))! {
-            cell.pictureImageView.image = UIImage(named: "superChargerPin")
-        }
         return cell
     }
-
     
 }

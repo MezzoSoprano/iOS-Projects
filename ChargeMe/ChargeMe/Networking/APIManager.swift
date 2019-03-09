@@ -48,7 +48,7 @@ extension APIManager {
             } else {
                 switch HTTPResponse.statusCode {
                 case 200:
-                        completionHandler(data, HTTPResponse, nil)
+                    completionHandler(data, HTTPResponse, nil)
                 default:
                     print("We have got response status \(HTTPResponse.statusCode)")
                 }
@@ -66,7 +66,6 @@ extension APIManager {
                     if let error = error {
                         completionHandler(.Failure(error))
                     }
-                    
                     return
                 }
                 

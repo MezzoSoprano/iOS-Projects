@@ -9,9 +9,9 @@
 import UIKit
 import CoreLocation
 
- class MapChargesTypeURL {
+class MapChargesTypeURL {
     static var baseURL: String = "https://api.openchargemap.io/v2/poi/?"
-
+    
     static func getModifiedRequest(coordinates: CLLocationCoordinate2D, distance: Double) -> URLRequest {
         let urlString = baseURL + "maxresults=1000&distanceunit=KM&latitude=\(coordinates.latitude)&longitude=\(coordinates.longitude)&distance=\(distance)"
         let url = URL(string: urlString)!
@@ -26,21 +26,21 @@ final class APIStaionsManager: APIManager {
     lazy var session: URLSession = {
         return URLSession(configuration: self.sessionConfiguration)
     } ()
-
+    
     init(sessionConfiguration: URLSessionConfiguration) {
         self.sessionConfiguration = sessionConfiguration
     }
-
+    
     func fetchStationsWith(coordinates: CLLocationCoordinate2D, radius: Double, completionHandler: @escaping (APIResult<ChargeStation>) -> Void) {
         
         fetch(request: MapChargesTypeURL.getModifiedRequest(coordinates: coordinates, distance: radius), parse: { (data) -> [ChargeStation]? in
             do {
-                print(MapChargesTypeURL.getModifiedRequest(coordinates: coordinates, distance: radius))
+                
                 //here dataResponse received from a network request
                 let decoder = JSONDecoder()
                 let models = try decoder.decode([ChargeStation].self, from: data) //Decode JSON Response Data
-                print("first time is \(DispatchTime.now())")
                 return models
+                
             } catch let parsingError {
                 print("Error", parsingError)
                 return nil
