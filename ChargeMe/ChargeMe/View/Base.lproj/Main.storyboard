@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GdS-LD-EC8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GdS-LD-EC8">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -104,12 +104,12 @@
                     <navigationItem key="navigationItem" id="moM-w1-psn"/>
                     <connections>
                         <outlet property="goToMyLocation" destination="kJY-mu-K0g" id="jbJ-2F-xjr"/>
-                        <outlet property="longPressOutlet" destination="srh-YF-yXI" id="RR8-Yu-eAF"/>
+                        <outlet property="longPressGesture" destination="srh-YF-yXI" id="RR8-Yu-eAF"/>
                         <outlet property="mapView" destination="c6r-rw-Zi7" id="92u-Ja-i7a"/>
-                        <outlet property="refreshOutlet" destination="77g-FQ-iE5" id="Spu-FE-WiL"/>
-                        <outlet property="searchOutlet" destination="2hi-ZN-q2z" id="42p-Th-169"/>
-                        <outlet property="selectedRange" destination="UI7-jl-2Cu" id="Dzr-AY-M8j"/>
-                        <outlet property="sliderOutlet" destination="zwb-4c-XlH" id="QmR-sQ-ibY"/>
+                        <outlet property="refreshButton" destination="77g-FQ-iE5" id="Spu-FE-WiL"/>
+                        <outlet property="searchButton" destination="2hi-ZN-q2z" id="42p-Th-169"/>
+                        <outlet property="selectedRangeLabel" destination="UI7-jl-2Cu" id="Dzr-AY-M8j"/>
+                        <outlet property="slider" destination="zwb-4c-XlH" id="QmR-sQ-ibY"/>
                         <outlet property="topStackView" destination="mOj-mz-n8Z" id="hY7-u0-orI"/>
                         <segue destination="w3A-IQ-fD3" kind="show" identifier="swgueToInfo" id="CfJ-BY-MHw"/>
                     </connections>
@@ -179,21 +179,21 @@
             </objects>
             <point key="canvasLocation" x="-126" y="770"/>
         </scene>
-        <!--Charher Info View Controller-->
+        <!--Station Info View Controller-->
         <scene sceneID="AmD-aX-nAB">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="w3A-IQ-fD3" customClass="CharherInfoViewController" customModule="ChargeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="w3A-IQ-fD3" customClass="StationInfoViewController" customModule="ChargeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1wP-d3-aRG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="827"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBD-g0-hSl">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="PBD-g0-hSl">
                                 <rect key="frame" x="0.0" y="64" width="414" height="714"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubv-vn-QyL">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="827"/>
                                         <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKO-Zj-cti">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="dKO-Zj-cti">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="224"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </scrollView>
@@ -267,7 +267,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ySt-aa-XcN">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ySt-aa-XcN">
                                                                     <rect key="frame" x="83" y="34.5" width="249" height="199"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="199" id="gGt-1q-bTL"/>
@@ -288,6 +288,10 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="w3A-IQ-fD3" id="s8X-pH-KVR"/>
+                                                    <outlet property="delegate" destination="w3A-IQ-fD3" id="h8U-b1-VIe"/>
+                                                </connections>
                                             </collectionView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="s2X-0E-UaO">
                                                 <rect key="frame" x="20" y="554" width="374" height="126"/>
@@ -389,7 +393,7 @@
                     <size key="freeformSize" width="414" height="827"/>
                     <connections>
                         <outlet property="addreNameLabel" destination="xS2-hE-cas" id="aSk-Rf-bRe"/>
-                        <outlet property="chargerPhotos" destination="dKO-Zj-cti" id="gzi-9P-j9d"/>
+                        <outlet property="chargerPhotosScrollView" destination="dKO-Zj-cti" id="gzi-9P-j9d"/>
                         <outlet property="contactEmailLabel" destination="AFL-kG-asC" id="Lge-PF-475"/>
                         <outlet property="contactPhoneLabel" destination="N5s-1d-YDK" id="QN9-Wa-QP1"/>
                         <outlet property="contactWebSiteLabel" destination="Pxz-1Q-3bZ" id="iz0-ZY-d6L"/>
@@ -399,7 +403,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZr-6K-kam" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1629" y="77"/>
+            <point key="canvasLocation" x="1628.8" y="76.911544227886068"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jaP-Xp-ARz">

@@ -11,6 +11,7 @@ import Contacts
 import MapKit
 
 struct ChargeStation: Codable {
+    
     let ID: Int?
     let GeneralComments: String?
     var DateLastVerified: String?

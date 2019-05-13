@@ -8,7 +8,7 @@
 
 import UIKit
 
-class tableCell: UITableViewCell, UITextFieldDelegate {
+class StationTableCell: UITableViewCell, UITextFieldDelegate {
     
     let cellView: UIView = {
         let view = UIView()
@@ -80,3 +80,36 @@ class tableCell: UITableViewCell, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+//MARK: - Configuration
+
+extension StationTableCell {
+    
+    func configure(with station: ChargeStation) {
+        self.nameLabel.text = station.AddressInfo?.Title ?? "Address Title not found"
+        
+        let distance = String(format: "%.2f", station.AddressInfo?.Distance ?? 0)
+        var distanceText = "Drive: \(distance) km"
+        
+        if station.Connections.count > 0 {
+            distanceText.append(", ")
+            for item in station.Connections {
+                distanceText.append(item?.ConnectionType?.Title ?? "")
+                if item?.ConnectionType?.Title == station.Connections.last!?.ConnectionType?.Title {
+                    break
+                }
+            }
+        }
+        
+        self.distanceLabel.text = distanceText
+        
+        if self.distanceLabel.text!.contains("Tesla") {
+            self.pictureImageView.image = UIImage(named: "superChargerPin")
+        } else if self.distanceLabel.text!.contains("CHAdeMO") {
+            self.pictureImageView.image = UIImage(named: "chademoChargerPin")
+        } else {
+            self.pictureImageView.image = UIImage(named: "chargerPin")
+        }
+    }
+}
+

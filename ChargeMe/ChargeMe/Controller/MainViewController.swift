@@ -15,13 +15,13 @@ var showedStaions: [ChargeStation] = []
 class MainViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var refreshOutlet: UIButton!
-    @IBOutlet weak var searchOutlet: UIButton!
-    @IBOutlet weak var selectedRange: UILabel!
-    @IBOutlet weak var sliderOutlet: UISlider!
+    @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var selectedRangeLabel: UILabel!
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var goToMyLocation: LOTAnimationView!
-    @IBOutlet var longPressOutlet: UILongPressGestureRecognizer!
+    @IBOutlet var longPressGesture: UILongPressGestureRecognizer!
     
     let tableAutocomplete = UITableView()
     
@@ -70,11 +70,11 @@ class MainViewController: UIViewController {
         goToMyLocation.isUserInteractionEnabled = true
         goToMyLocation.translatesAutoresizingMaskIntoConstraints = false
         
-        refreshOutlet.setLightShadow()
-        searchOutlet.setLightShadow()
+        refreshButton.setLightShadow()
+        searchButton.setLightShadow()
         
         //getting the slider released method
-        self.sliderOutlet.addTarget(self, action: #selector(rangeRealesed), for: .touchUpInside)
+        self.slider.addTarget(self, action: #selector(rangeRealesed), for: .touchUpInside)
         
         checkLocationservices()
         
@@ -82,7 +82,7 @@ class MainViewController: UIViewController {
             selectedCoordinates = locationManager.location!.coordinate
         }
         
-        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRangeLabel.text!)!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,7 +101,7 @@ class MainViewController: UIViewController {
                 
                 if nearStations.count == 0 {
                     self.createAlert(title: "Couldn't find charge stations", message: "Sorry, there ara no any charge stations near selected region with distance \(distance) km")
-                    self.centerView(with: coordinates, region: Double(self.selectedRange.text!)!)
+                    self.centerView(with: coordinates, region: Double(self.selectedRangeLabel.text!)!)
                 } else {
                     print(nearStations.count)
                     
@@ -114,7 +114,7 @@ class MainViewController: UIViewController {
                         
                     }
                     showedStaions = nearStations
-                    self.centerView(with: coordinates, region: Double(self.selectedRange.text!)!)
+                    self.centerView(with: coordinates, region: Double(self.selectedRangeLabel.text!)!)
                 }
             case .Failure(let error as NSError):
                 
@@ -130,15 +130,15 @@ class MainViewController: UIViewController {
             }
             
             self.progressIndicator.removeFromSuperview()
-            self.refreshOutlet.layer.removeAllAnimations()
-            self.refreshOutlet.isEnabled = true
-            self.searchOutlet.isEnabled = true
-            self.longPressOutlet.isEnabled = true
+            self.refreshButton.layer.removeAllAnimations()
+            self.refreshButton.isEnabled = true
+            self.searchButton.isEnabled = true
+            self.longPressGesture.isEnabled = true
         }
         
-        self.longPressOutlet.isEnabled = false
-        self.refreshOutlet.isEnabled = false
-        self.searchOutlet.isEnabled = false
+        self.longPressGesture.isEnabled = false
+        self.refreshButton.isEnabled = false
+        self.searchButton.isEnabled = false
         self.progressIndicator.center = self.view.center
         self.progressIndicator.startAnimating()
         self.view.addSubview(progressIndicator)
@@ -151,17 +151,22 @@ class MainViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is CharherInfoViewController {
-            let vc = segue.destination as? CharherInfoViewController
+        if segue.destination is StationInfoViewController {
+            let vc = segue.destination as? StationInfoViewController
             
             if let sa = selectedAnnotation {
-                vc?.receivedStaion = showedStaions.first(where: { $0.AddressInfo?.Latitude == sa.annotation?.coordinate.latitude && $0.AddressInfo?.Longitude == sa.annotation?.coordinate.longitude})
+                vc?.receivedStaition = showedStaions.first(where: { $0.AddressInfo?.Latitude == sa.annotation?.coordinate.latitude && $0.AddressInfo?.Longitude == sa.annotation?.coordinate.longitude})
             }
         }
     }
+}
+
+// MARK: - Actions
+
+extension MainViewController {
+    
     @objc func goToInitialCoordinates() {
         goToMyLocation.play()
-        
         
         if let location = locationManager.location {
             selectedCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -172,17 +177,17 @@ class MainViewController: UIViewController {
     }
     
     @objc func rangeRealesed() {
-        rotateAnimation(view: refreshOutlet)
-        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+        rotateAnimation(view: refreshButton)
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRangeLabel.text!)!)
     }
     
     @IBAction func refreshTapped(_ sender: Any) {
-        rotateAnimation(view: refreshOutlet)
-        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+        rotateAnimation(view: refreshButton)
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRangeLabel.text!)!)
     }
     
     @IBAction func rangeChanged(_ sender: UISlider) {
-        selectedRange.text = String(Int(sender.value))
+        selectedRangeLabel.text = String(Int(sender.value))
     }
     
     @IBAction func longMapPressed(_ sender: UILongPressGestureRecognizer) {
@@ -196,10 +201,11 @@ class MainViewController: UIViewController {
         self.selectedCoordinates = coordinate
         self.mapView.addAnnotation(annotation)
         
-        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+        self.showStations(near: selectedCoordinates, distance: Double(self.selectedRangeLabel.text!)!)
     }
-    
 }
+
+// MARK: - Location Manager
 
 extension MainViewController : CLLocationManagerDelegate {
     
@@ -207,7 +213,7 @@ extension MainViewController : CLLocationManagerDelegate {
         switch CLLocationManager.authorizationStatus(){
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
-            centerViewOnUserLocation(regionInKM: Double(selectedRange.text!)!)
+            centerViewOnUserLocation(regionInKM: Double(selectedRangeLabel.text!)!)
             locationManager.startUpdatingLocation()
             break
         case .denied:
@@ -218,10 +224,11 @@ extension MainViewController : CLLocationManagerDelegate {
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
             self.createAlert(title: "Couldn't get your location", message: "This app is not authorized to use location services possibly due to active restrictions such as parental control.")
-            
             break
         case .authorizedAlways:
             break
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -251,6 +258,8 @@ extension MainViewController : CLLocationManagerDelegate {
         checkLocationAuthorization()
     }
 }
+
+// MARK - Map View delegate
 
 extension MainViewController: MKMapViewDelegate {
     
@@ -321,6 +330,7 @@ extension MainViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         self.performSegue(withIdentifier: "swgueToInfo", sender: nil)
     }
+    
     @objc func goButtonPressed(sender: Any) {
         
         if selectedAnnotation != nil, let location = selectedAnnotation!.annotation as? ChargeStationAnnotation {
@@ -328,23 +338,26 @@ extension MainViewController: MKMapViewDelegate {
             location.mapItem().openInMaps(launchOptions: launchOptions)
             
         } else {
-            createAlert(title: "Couldn't build the  route", message: "Sorry, we couldn't build this route")
+            createAlert(title: "Couldn't build the  route", message: "Select the staion or/and location")
         }
     }
 }
+
+
+// MARK: - Search Bar delegate
 
 extension MainViewController: UISearchBarDelegate {
     
     @IBAction func seartchTapped(_ sender: Any) {
         
-        searchOutlet.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        searchButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 0.2,
                        delay: 0,
                        usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 6.0,
                        options: .allowUserInteraction,
                        animations: {
-                        self.searchOutlet.transform = .identity
+                        self.searchButton.transform = .identity
                         
         }) { (isFinished) in
             UIView.animate(withDuration: 0.5, animations: {
@@ -390,6 +403,7 @@ extension MainViewController: UISearchBarDelegate {
             if response == nil {
                 print("ERROR")
             } else {
+                
                 //Getting data
                 let latitude = response?.mapItems[0].placemark.coordinate.latitude
                 let longitude = response?.mapItems[0].placemark.coordinate.longitude
@@ -403,7 +417,7 @@ extension MainViewController: UISearchBarDelegate {
                 self.mapView.addAnnotation(annotation)
                 
                 //Zooming in on annotation
-                self.showStations(near: self.selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+                self.showStations(near: self.selectedCoordinates, distance: Double(self.selectedRangeLabel.text!)!)
                 
             }
             
@@ -440,51 +454,17 @@ extension MainViewController: UISearchBarDelegate {
     func showStackView(bool: Bool) {
         if bool {
             self.topStackView.isHidden = false
-            self.selectedRange.isHidden = false
+            self.selectedRangeLabel.isHidden = false
         } else {
             self.topStackView.isHidden = true
-            self.selectedRange.isHidden = true
+            self.selectedRangeLabel.isHidden = true
         }
     }
 }
 
-extension MainViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let searchResult = searchResults[indexPath.row]
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = searchResult.title
-        cell.detailTextLabel?.text = searchResult.subtitle
-        cell.backgroundColor = .clear
-        
-        cell.textLabel?.attributedText = highlightedText(searchResult.title, inRanges: searchResult.titleHighlightRanges, size: 17.0)
-        cell.detailTextLabel?.attributedText = highlightedText(searchResult.subtitle, inRanges: searchResult.subtitleHighlightRanges, size: 12.0)
-        return cell
-    }
-    
-    func highlightedText(_ text: String, inRanges ranges: [NSValue], size: CGFloat) -> NSAttributedString {
-        let attributedText = NSMutableAttributedString(string: text)
-        let regular = UIFont.systemFont(ofSize: size)
-        attributedText.addAttribute(NSAttributedString.Key.font, value:regular, range:NSMakeRange(0, text.count))
-        
-        let bold = UIFont.boldSystemFont(ofSize: size)
-        for value in ranges {
-            attributedText.addAttribute(NSAttributedString.Key.font, value:bold, range:value.rangeValue)
-        }
-        return attributedText
-    }
-    
-}
+// MARK: - Table View Completer
 
-extension MainViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -520,7 +500,7 @@ extension MainViewController: UITableViewDelegate {
                 self.mapView.addAnnotation(annotation)
                 
                 //Zooming in on annotation
-                self.showStations(near: self.selectedCoordinates, distance: Double(self.selectedRange.text!)!)
+                self.showStations(near: self.selectedCoordinates, distance: Double(self.selectedRangeLabel.text!)!)
                 
             }
         }
@@ -532,7 +512,37 @@ extension MainViewController: UITableViewDelegate {
             self.blurViewMap.removeFromSuperview()
         }
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchResults.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let searchResult = searchResults[indexPath.row]
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        cell.textLabel?.text = searchResult.title
+        cell.detailTextLabel?.text = searchResult.subtitle
+        cell.backgroundColor = .clear
+        
+        cell.textLabel?.attributedText = highlightedText(searchResult.title, inRanges: searchResult.titleHighlightRanges, size: 17.0)
+        cell.detailTextLabel?.attributedText = highlightedText(searchResult.subtitle, inRanges: searchResult.subtitleHighlightRanges, size: 12.0)
+        return cell
+    }
+    
+    func highlightedText(_ text: String, inRanges ranges: [NSValue], size: CGFloat) -> NSAttributedString {
+        let attributedText = NSMutableAttributedString(string: text)
+        let regular = UIFont.systemFont(ofSize: size)
+        attributedText.addAttribute(NSAttributedString.Key.font, value:regular, range:NSMakeRange(0, text.count))
+        
+        let bold = UIFont.boldSystemFont(ofSize: size)
+        for value in ranges {
+            attributedText.addAttribute(NSAttributedString.Key.font, value:bold, range:value.rangeValue)
+        }
+        return attributedText
+    }
 }
+
+// MARK: - Local Search Completer
 
 extension MainViewController: MKLocalSearchCompleterDelegate {
     
@@ -542,7 +552,7 @@ extension MainViewController: MKLocalSearchCompleterDelegate {
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        // handle error
+        self.createAlert(title: "Error", message: error.localizedDescription)
     }
 }
 
