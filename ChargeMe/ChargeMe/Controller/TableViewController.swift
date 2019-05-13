@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TableViewController: UIViewController {
     
     var tableView = UITableView()
     let tableCellID = "CellID"
@@ -41,6 +41,20 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is StationInfoViewController {
+            let vc = segue.destination as! StationInfoViewController
+            let index = sender as! IndexPath
+            let indexx = index.row
+            vc.receivedStaition = showedStaions[indexx]
+        }
+    }
+}
+
+// MARK: - Table View Delegate / Data Source
+
+extension TableViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showedStaions.count
     }
@@ -49,5 +63,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCellID, for: indexPath) as! StationTableCell
         cell.configure(with: showedStaions[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "goToDetail", sender: indexPath)
     }
 }

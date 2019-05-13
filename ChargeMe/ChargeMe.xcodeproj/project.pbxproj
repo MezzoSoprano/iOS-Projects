@@ -31,6 +31,7 @@
 		76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */; };
 		CDE3F8172478C6DC676EC649 /* Pods_ChargeMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */; };
 		F9AF919C22896AFA002B489B /* ChargeInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */; };
+		F9AF91A122898DD3002B489B /* MainViewController+TableSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBD70A9C74A0E95AF1FF4A5 /* Pods-ChargeMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeMe.release.xcconfig"; path = "Target Support Files/Pods-ChargeMe/Pods-ChargeMe.release.xcconfig"; sourceTree = "<group>"; };
 		F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeInfoViewModel.swift; sourceTree = "<group>"; };
+		F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+TableSearch.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +172,7 @@
 		7652FF9521F3543F007D41C5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7652FF7E21F34EDC007D41C5 /* MainViewController.swift */,
+				F9AF919F22898DA3002B489B /* Main View Controller */,
 				76C79B8B22184CF60086E271 /* TableViewController.swift */,
 				76CFE053221C3F6300ED2ED5 /* StationInfoViewController.swift */,
 			);
@@ -244,6 +246,15 @@
 				766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		F9AF919F22898DA3002B489B /* Main View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7652FF7E21F34EDC007D41C5 /* MainViewController.swift */,
+				F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */,
+			);
+			path = "Main View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,6 +391,7 @@
 				76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */,
 				76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */,
 				76C79B9322185FC00086E271 /* LightTheme.swift in Sources */,
+				F9AF91A122898DD3002B489B /* MainViewController+TableSearch.swift in Sources */,
 				7652FF8521F34EDC007D41C5 /* ChargeMe.xcdatamodeld in Sources */,
 				F9AF919C22896AFA002B489B /* ChargeInfoViewModel.swift in Sources */,
 				766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */,
