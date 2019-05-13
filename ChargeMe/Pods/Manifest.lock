@@ -1,25 +1,29 @@
 PODS:
   - Auk (9.0.0):
     - moa
+  - GravitySliderFlowLayout (1.0)
   - lottie-ios (2.5.2)
   - moa (10.0.0)
 
 DEPENDENCIES:
   - Auk (~> 9.0)
+  - GravitySliderFlowLayout
   - lottie-ios
   - moa (~> 10.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Auk
+    - GravitySliderFlowLayout
     - lottie-ios
     - moa
 
 SPEC CHECKSUMS:
   Auk: 13f9bbb5a2f554b4e5b2502982188a4982bc9398
+  GravitySliderFlowLayout: bb9ae6a302b85821c9e0271c00533fae8091143b
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   moa: 95c863fd1059e6b5c7f6be30627823bb07ebca25
 
-PODFILE CHECKSUM: c7eec9180be1366d2305026e7890a09ffae16088
+PODFILE CHECKSUM: 6c771d39dc744a33dca30e94d96f7a6f8b5b4304
 
 COCOAPODS: 1.6.1

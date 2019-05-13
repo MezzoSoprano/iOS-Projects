@@ -7,6 +7,7 @@ target 'ChargeMe' do
   # Pods for ChargeMe
 
   pod 'lottie-ios'
+  pod 'GravitySliderFlowLayout'
   pod 'moa', '~> 10.0'
   pod 'Auk', '~> 9.0'
 

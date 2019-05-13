@@ -9,6 +9,7 @@
 import UIKit
 import moa
 import Auk
+import GravitySliderFlowLayout
 
 class StationInfoViewController: UIViewController {
     
@@ -23,6 +24,8 @@ class StationInfoViewController: UIViewController {
     @IBOutlet weak var contactEmailLabel: UILabel!
     @IBOutlet weak var contactWebSiteLabel: UILabel!
     
+    let gravitySliderLayout = GravitySliderFlowLayout(with: CGSize(width: 400, height: 400))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +34,8 @@ class StationInfoViewController: UIViewController {
         
         chargerPhotosScrollView.auk.settings.contentMode = UIView.ContentMode.scaleAspectFit
         chargerPhotosScrollView.backgroundColor = UIColor(r: 154, g: 244, b: 204)
+        
+        socketCollectionView.collectionViewLayout = gravitySliderLayout
     }
 }
 
@@ -46,16 +51,15 @@ extension StationInfoViewController: UICollectionViewDelegate, UICollectionViewD
         return cell
     }
     
-    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        
-        if let focusedView = context.nextFocusedView as? UICollectionViewCell {
-            self.socketCollectionView.isScrollEnabled = false
-            let indexPath = socketCollectionView.indexPath(for: focusedView)!
-            self.socketCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.socketCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    }
+//    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) 
+//        if let focusedView = context.nextFocusedView as? UICollectionViewCell {
+//            self.socketCollectionView.isScrollEnabled = false
+//            let indexPath = socketCollectionView.indexPath(for: focusedView)!
+//            self.socketCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+//        }
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        self.socketCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+//    }
 }
