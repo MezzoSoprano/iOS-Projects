@@ -53,3 +53,24 @@ extension UIView {
     }
 }
 
+// MARK: - Animation
+
+extension UIView {
+    
+    func lightAnimate(completion: @escaping () -> Void ) {
+        self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 0.2,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 6.0,
+                       options: .allowUserInteraction,
+                       animations: {
+                        self.transform = .identity
+                        
+        }) { (isFinished) in
+            UIView.animate(withDuration: 0.5, animations: {
+                completion()
+            }, completion: nil)
+        }
+    }
+}
