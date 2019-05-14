@@ -146,11 +146,16 @@ class MainViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is StationInfoViewController {
-            let vc = segue.destination as? StationInfoViewController
-            
-            if let sa = selectedAnnotation {
-                vc?.receivedStaition = showedStaions.first(where: { $0.AddressInfo?.Latitude == sa.annotation?.coordinate.latitude && $0.AddressInfo?.Longitude == sa.annotation?.coordinate.longitude})
+        if let identifier = segue.identifier {
+            if identifier == "showModally" {
+                if let viewController = segue.destination as? FilterViewController {
+                    viewController.delegate = self
+                    viewController.modalPresentationStyle = .overFullScreen
+                }
+            } else if identifier == "swgueToInfo" {
+                if let sa = selectedAnnotation, let vc = segue.destination as? StationInfoViewController {
+                    vc.receivedStaition = showedStaions.first(where: { $0.AddressInfo?.Latitude == sa.annotation?.coordinate.latitude && $0.AddressInfo?.Longitude == sa.annotation?.coordinate.longitude})
+                }
             }
         }
     }
@@ -161,11 +166,15 @@ class MainViewController: UIViewController {
 extension MainViewController {
     
     @IBAction func filter(_ sender: Any) {
-        
+        filterButton.lightAnimate {() in self.definesPresentationContext = true
+            self.providesPresentationContextTransitionStyle = true
+            
+            self.overlayBlurredBackgroundView()
+            self.performSegue(withIdentifier: "showModally", sender: nil)}
     }
     
     @IBAction func goToHome(_ sender: Any) {
-        goHomeButton.lightAnimate { }
+        goHomeButton.lightAnimate {}
         
         if let location = self.locationManager.location {
             self.selectedCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -269,7 +278,7 @@ extension MainViewController : CLLocationManagerDelegate {
     }
 }
 
-// MARK - Map View delegate
+// MARK: - Map View Delegate
 
 extension MainViewController: MKMapViewDelegate {
     
@@ -342,5 +351,28 @@ extension MainViewController: MKMapViewDelegate {
     }
 }
 
+// MARK: - Modal View Presenting
 
+extension MainViewController: ModalViewControllerDelegate {
+    
+    func overlayBlurredBackgroundView() {
+        
+        let blurredBackgroundView = UIVisualEffectView()
+        
+        blurredBackgroundView.frame = view.frame
+        blurredBackgroundView.effect = UIBlurEffect(style: .dark)
+        
+        view.addSubview(blurredBackgroundView)
+        
+    }
+    
+    func removeBlurredBackgroundView() {
+        
+        for subview in view.subviews {
+            if subview.isKind(of: UIVisualEffectView.self) {
+                subview.removeFromSuperview()
+            }
+        }
+    }
+}
 

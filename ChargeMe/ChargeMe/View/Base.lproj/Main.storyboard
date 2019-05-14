@@ -53,6 +53,7 @@
                                             <constraint firstAttribute="height" constant="40" id="Gr3-On-3rd"/>
                                             <constraint firstAttribute="width" constant="40" id="RxY-DX-3wK"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.23137254901960785" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="icons8-search"/>
                                         <connections>
                                             <action selector="seartchTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5nl-nX-bXI"/>
@@ -69,17 +70,18 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULD-zv-RXd">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="3L7-Dw-dzr"/>
-                                            <constraint firstAttribute="height" constant="40" id="zO1-T8-93E"/>
+                                            <constraint firstAttribute="width" constant="40" id="3L7-Dw-dzr" userLabel="width = 30"/>
+                                            <constraint firstAttribute="height" constant="40" id="zO1-T8-93E" userLabel="height = 30"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="filter"/>
+                                        <color key="tintColor" red="0.98823529480000005" green="0.76078432799999995" blue="0.078431375319999996" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Button" image="filter-2"/>
                                         <connections>
                                             <action selector="filter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6ec-YP-RHA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-8n-eZt">
                                         <rect key="frame" x="0.0" y="48" width="40" height="40"/>
-                                        <state key="normal" title="Button" image="target"/>
+                                        <state key="normal" title="Button" image="gps-location"/>
                                         <connections>
                                             <action selector="goToHome:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yxF-p9-x94"/>
                                         </connections>
@@ -135,6 +137,7 @@
                         <outlet property="slider" destination="zwb-4c-XlH" id="QmR-sQ-ibY"/>
                         <outlet property="topStackView" destination="mOj-mz-n8Z" id="hY7-u0-orI"/>
                         <segue destination="w3A-IQ-fD3" kind="show" identifier="swgueToInfo" id="CfJ-BY-MHw"/>
+                        <segue destination="sbw-ui-0xN" kind="presentation" identifier="showModally" id="at5-7P-Q3A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -164,6 +167,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lQT-gp-oWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1735.2" y="4.9475262368815596"/>
+        </scene>
+        <!--Filter View Controller-->
+        <scene sceneID="vRy-6E-K2U">
+            <objects>
+                <viewController id="sbw-ui-0xN" userLabel="Filter View Controller" customClass="FilterViewController" customModule="ChargeMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bca-Ew-c8X">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VA5-Vf-fQI">
+                                <rect key="frame" x="10" y="30" width="33" height="33"/>
+                                <state key="normal" image="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="sbw-ui-0xN" eventType="touchUpInside" id="jRy-Rc-MPu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="VA5-Vf-fQI" firstAttribute="leading" secondItem="WyC-y3-0cD" secondAttribute="leading" constant="10" id="BXg-sa-OUG"/>
+                            <constraint firstItem="VA5-Vf-fQI" firstAttribute="top" secondItem="WyC-y3-0cD" secondAttribute="top" constant="10" id="gzY-vh-dAR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="WyC-y3-0cD"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="VA5-Vf-fQI" id="KyE-4i-Mr6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bQA-Q7-eJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2599" y="-703"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="oiU-73-iHa">
@@ -201,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nXb-lm-Wpm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-126" y="770"/>
+            <point key="canvasLocation" x="794" y="878"/>
         </scene>
         <!--Station Info View Controller-->
         <scene sceneID="AmD-aX-nAB">
@@ -473,16 +507,17 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Cancel" width="33" height="33"/>
         <image name="approval" width="384" height="384"/>
         <image name="contactMail" width="529" height="380"/>
         <image name="contactPhone" width="514" height="514"/>
-        <image name="filter" width="376" height="384"/>
+        <image name="filter-2" width="376" height="384"/>
+        <image name="gps-location" width="384" height="384"/>
         <image name="icons8-search" width="100" height="100"/>
         <image name="listt" width="25" height="26"/>
         <image name="mapBarItem" width="25" height="25"/>
         <image name="refresh" width="300" height="300"/>
         <image name="settings1" width="25" height="26"/>
-        <image name="target" width="93" height="94"/>
         <image name="webSite" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>

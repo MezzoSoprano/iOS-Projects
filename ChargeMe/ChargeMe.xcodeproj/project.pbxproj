@@ -30,6 +30,7 @@
 		76CFE054221C3F6300ED2ED5 /* StationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CFE053221C3F6300ED2ED5 /* StationInfoViewController.swift */; };
 		76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */; };
 		CDE3F8172478C6DC676EC649 /* Pods_ChargeMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */; };
+		F9A28877228ABDB700C14C04 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A28876228ABDB700C14C04 /* FilterViewController.swift */; };
 		F9AF919C22896AFA002B489B /* ChargeInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */; };
 		F9AF91A122898DD3002B489B /* MainViewController+TableSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBD70A9C74A0E95AF1FF4A5 /* Pods-ChargeMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeMe.release.xcconfig"; path = "Target Support Files/Pods-ChargeMe/Pods-ChargeMe.release.xcconfig"; sourceTree = "<group>"; };
+		F9A28876228ABDB700C14C04 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeInfoViewModel.swift; sourceTree = "<group>"; };
 		F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+TableSearch.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +177,7 @@
 				F9AF919F22898DA3002B489B /* Main View Controller */,
 				76C79B8B22184CF60086E271 /* TableViewController.swift */,
 				76CFE053221C3F6300ED2ED5 /* StationInfoViewController.swift */,
+				F9A28876228ABDB700C14C04 /* FilterViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				7652FF7F21F34EDC007D41C5 /* MainViewController.swift in Sources */,
 				7652FF7D21F34EDC007D41C5 /* AppDelegate.swift in Sources */,
 				7657402921F8B7AA00B4D4CD /* UIColorExtension.swift in Sources */,
+				F9A28877228ABDB700C14C04 /* FilterViewController.swift in Sources */,
 				766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */,
 				76C79B8E221850DD0086E271 /* StationTableCell.swift in Sources */,
 				76CFE054221C3F6300ED2ED5 /* StationInfoViewController.swift in Sources */,
