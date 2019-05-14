@@ -34,7 +34,7 @@ class StationInfoViewController: UIViewController {
         
         chargerPhotosScrollView.auk.settings.contentMode = UIView.ContentMode.scaleAspectFit
         chargerPhotosScrollView.backgroundColor = UIColor(r: 154, g: 244, b: 204)
-        
+    
         socketCollectionView.collectionViewLayout = gravitySliderLayout
     }
 }
