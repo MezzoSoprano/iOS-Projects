@@ -34,7 +34,7 @@ class StationInfoViewController: UIViewController {
         
         chargerPhotosScrollView.auk.settings.contentMode = UIView.ContentMode.scaleAspectFit
         chargerPhotosScrollView.backgroundColor = UIColor(r: 154, g: 244, b: 204)
-        
+    
         socketCollectionView.collectionViewLayout = gravitySliderLayout
     }
 }
@@ -50,16 +50,4 @@ extension StationInfoViewController: UICollectionViewDelegate, UICollectionViewD
         cell.configureWith(typeName: viewModel.socketsNames[indexPath.row])
         return cell
     }
-    
-//    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) 
-//        if let focusedView = context.nextFocusedView as? UICollectionViewCell {
-//            self.socketCollectionView.isScrollEnabled = false
-//            let indexPath = socketCollectionView.indexPath(for: focusedView)!
-//            self.socketCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//        }
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        self.socketCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//    }
 }

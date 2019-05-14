@@ -14,6 +14,12 @@ class ChargeInfoViewModel {
     
     private let station: ChargeStation
     
+    private var progressIndicator: UIActivityIndicatorView = {
+        let pi = UIActivityIndicatorView(style: .whiteLarge)
+        pi.color = UIColor(r: 127, g: 181, b: 181)
+        return pi
+    }()
+    
     public init(station: ChargeStation) {
         self.station = station
     }
@@ -88,6 +94,10 @@ extension ChargeInfoViewModel {
         view.contactEmailLabel.text = self.emailText
         view.contactPhoneLabel.text = self.phoneText
         view.contactWebSiteLabel.text = self.websiteURLText
+        
+        progressIndicator.center = CGPoint(x: view.chargerPhotosScrollView.center.x - 15, y: view.chargerPhotosScrollView.center.y)
+        progressIndicator.startAnimating()
+        view.chargerPhotosScrollView.addSubview(progressIndicator)
         
         if imagesURL.count > 0 {
             for item in self.imagesURL {
