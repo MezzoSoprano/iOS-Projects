@@ -31,6 +31,7 @@
 		76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA7B1621F74653000C41A2 /* UIViewControllerExtension.swift */; };
 		CDE3F8172478C6DC676EC649 /* Pods_ChargeMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */; };
 		F9A28877228ABDB700C14C04 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A28876228ABDB700C14C04 /* FilterViewController.swift */; };
+		F9A28879228AF59800C14C04 /* SocketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A28878228AF59800C14C04 /* SocketType.swift */; };
 		F9AF919C22896AFA002B489B /* ChargeInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */; };
 		F9AF91A122898DD3002B489B /* MainViewController+TableSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		787D472F429727E83AF64BA1 /* Pods_ChargeMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBD70A9C74A0E95AF1FF4A5 /* Pods-ChargeMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeMe.release.xcconfig"; path = "Target Support Files/Pods-ChargeMe/Pods-ChargeMe.release.xcconfig"; sourceTree = "<group>"; };
 		F9A28876228ABDB700C14C04 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		F9A28878228AF59800C14C04 /* SocketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketType.swift; sourceTree = "<group>"; };
 		F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeInfoViewModel.swift; sourceTree = "<group>"; };
 		F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+TableSearch.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +158,7 @@
 			children = (
 				761AD8FA21F53EB500799AFE /* ChargeStation.swift */,
 				7623DB8B21F73A6300E40D9A /* Coordinates.swift */,
+				F9A28878228AF59800C14C04 /* SocketType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				761AD8FB21F53EB500799AFE /* ChargeStation.swift in Sources */,
 				766FA1CB21F51040003030F0 /* APIManager.swift in Sources */,
 				76C79B8C22184CF60086E271 /* TableViewController.swift in Sources */,
+				F9A28879228AF59800C14C04 /* SocketType.swift in Sources */,
 				76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */,
 				76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */,
 				76C79B9322185FC00086E271 /* LightTheme.swift in Sources */,

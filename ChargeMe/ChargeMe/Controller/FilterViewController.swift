@@ -16,7 +16,10 @@ class FilterViewController: UIViewController {
     
     weak var delegate: ModalViewControllerDelegate?
     
+    public let vehicles: [String] = ["Tesla", "Nissan", "Renault", "Volkswagen", "Porsche"]
+    
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var vehiclePicker: UIPickerView!
     
     override func viewDidLayoutSubviews() {
         view.backgroundColor = UIColor.clear
@@ -40,5 +43,22 @@ extension FilterViewController {
     @IBAction func cancelButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
         delegate?.removeBlurredBackgroundView()
+    }
+}
+
+// MARK: - Picker View Delegate, Picker View Delegate
+
+extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return vehicles.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return vehicles[row]
     }
 }
