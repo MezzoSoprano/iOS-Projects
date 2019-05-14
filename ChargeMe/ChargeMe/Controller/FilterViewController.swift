@@ -18,11 +18,6 @@ class FilterViewController: UIViewController {
     
     @IBOutlet weak var cancelButton: UIButton!
     
-    @IBAction func cancelButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-        delegate?.removeBlurredBackgroundView()
-    }
-    
     override func viewDidLayoutSubviews() {
         view.backgroundColor = UIColor.clear
         
@@ -35,5 +30,15 @@ class FilterViewController: UIViewController {
         let tintedCancelImage = cancelImage?.withRenderingMode(.alwaysTemplate)
         cancelButton.setImage(tintedCancelImage, for: .normal)
         cancelButton.tintColor = .white
+    }
+}
+
+// MARK: - Actions
+
+extension FilterViewController {
+    
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+        delegate?.removeBlurredBackgroundView()
     }
 }

@@ -363,7 +363,7 @@ extension MainViewController: ModalViewControllerDelegate {
         blurredBackgroundView.effect = UIBlurEffect(style: .dark)
         
         view.addSubview(blurredBackgroundView)
-        
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     func removeBlurredBackgroundView() {
@@ -373,6 +373,7 @@ extension MainViewController: ModalViewControllerDelegate {
                 subview.removeFromSuperview()
             }
         }
+        self.tabBarController?.tabBar.isHidden = false
     }
 }
 
