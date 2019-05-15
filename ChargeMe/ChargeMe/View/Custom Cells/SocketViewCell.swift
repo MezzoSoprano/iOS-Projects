@@ -18,8 +18,12 @@ class SocketViewCell: UICollectionViewCell {
 
 extension SocketViewCell {
     
-    func configureWith(socket: Socket) {
-        self.typeName.text = socket.rawValue
+    func configureWith(socket: Socket, name: String) {
+        if socket.rawValue == "Unknown" {
+        self.typeName.text = name
+        } else {
+            self.typeName.text = socket.rawValue
+        }
         
         switch socket {
         case .CCS_SAE:
@@ -40,6 +44,8 @@ extension SocketViewCell {
             self.typeImage.image = UIImage(named: "noPicture")
         case .unknown:
             self.typeImage.image = UIImage(named: "noPicture")
+        case .teslaCharger:
+            self.typeImage.image = UIImage(named: "teslaCharg")
         }
     }
 }

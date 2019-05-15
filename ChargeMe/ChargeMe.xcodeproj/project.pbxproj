@@ -34,6 +34,8 @@
 		F9A28879228AF59800C14C04 /* SocketType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A28878228AF59800C14C04 /* SocketType.swift */; };
 		F9AF919C22896AFA002B489B /* ChargeInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */; };
 		F9AF91A122898DD3002B489B /* MainViewController+TableSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */; };
+		F9BADCC6228BFF29008DF785 /* ElectricVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BADCC5228BFF29008DF785 /* ElectricVehicle.swift */; };
+		F9BADCC8228C37D6008DF785 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BADCC7228C37D6008DF785 /* FilterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,8 @@
 		F9A28878228AF59800C14C04 /* SocketType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketType.swift; sourceTree = "<group>"; };
 		F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeInfoViewModel.swift; sourceTree = "<group>"; };
 		F9AF91A022898DD3002B489B /* MainViewController+TableSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+TableSearch.swift"; sourceTree = "<group>"; };
+		F9BADCC5228BFF29008DF785 /* ElectricVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricVehicle.swift; sourceTree = "<group>"; };
+		F9BADCC7228C37D6008DF785 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,7 @@
 				761AD8FA21F53EB500799AFE /* ChargeStation.swift */,
 				7623DB8B21F73A6300E40D9A /* Coordinates.swift */,
 				F9A28878228AF59800C14C04 /* SocketType.swift */,
+				F9BADCC5228BFF29008DF785 /* ElectricVehicle.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				F9AF919B22896AFA002B489B /* ChargeInfoViewModel.swift */,
+				F9BADCC7228C37D6008DF785 /* FilterViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -400,12 +406,14 @@
 				76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */,
 				76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */,
 				76C79B9322185FC00086E271 /* LightTheme.swift in Sources */,
+				F9BADCC6228BFF29008DF785 /* ElectricVehicle.swift in Sources */,
 				F9AF91A122898DD3002B489B /* MainViewController+TableSearch.swift in Sources */,
 				7652FF8521F34EDC007D41C5 /* ChargeMe.xcdatamodeld in Sources */,
 				F9AF919C22896AFA002B489B /* ChargeInfoViewModel.swift in Sources */,
 				766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */,
 				7652FF7F21F34EDC007D41C5 /* MainViewController.swift in Sources */,
 				7652FF7D21F34EDC007D41C5 /* AppDelegate.swift in Sources */,
+				F9BADCC8228C37D6008DF785 /* FilterViewModel.swift in Sources */,
 				7657402921F8B7AA00B4D4CD /* UIColorExtension.swift in Sources */,
 				F9A28877228ABDB700C14C04 /* FilterViewController.swift in Sources */,
 				766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */,

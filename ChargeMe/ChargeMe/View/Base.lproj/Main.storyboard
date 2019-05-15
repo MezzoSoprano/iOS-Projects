@@ -537,7 +537,7 @@
                                             </label>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdw-2M-KbS">
                                                 <rect key="frame" x="10" y="709" width="355" height="216"/>
-                                                <color key="tintColor" red="0.23137254900000001" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="sbw-ui-0xN" id="5wj-T3-rN8"/>
                                                     <outlet property="delegate" destination="sbw-ui-0xN" id="71u-p6-qS5"/>
@@ -586,13 +586,26 @@
                     </view>
                     <size key="freeformSize" width="375" height="950"/>
                     <connections>
+                        <outlet property="EuroWalletPlugSwitch" destination="eEf-NW-kns" id="zSW-XV-3RK"/>
+                        <outlet property="USWalletPlugSwitch" destination="7kw-ft-z1K" id="NIP-iG-qd8"/>
                         <outlet property="cancelButton" destination="VA5-Vf-fQI" id="KyE-4i-Mr6"/>
+                        <outlet property="chademoSwitch" destination="Vqj-du-V0x" id="0zF-Zy-AhQ"/>
+                        <outlet property="freePlaceSwitch" destination="h6d-iR-hvb" id="wEe-hz-FKi"/>
+                        <outlet property="homePlaceSwitch" destination="AoM-fz-Ovc" id="o7h-j1-mvH"/>
+                        <outlet property="j_1772Switch" destination="RoK-xm-A6m" id="y7E-Ke-U3W"/>
+                        <outlet property="nemaSwitch" destination="a4S-eU-9qE" id="6G2-1f-F8M"/>
+                        <outlet property="privatePlaceSwitch" destination="GpH-nk-RRg" id="7P6-6W-fOB"/>
+                        <outlet property="publicPlaceSwitch" destination="nEP-9T-PXg" id="aT2-ex-9Ig"/>
+                        <outlet property="saeComboCCSSwitch" destination="rUW-Wa-rQE" id="nmh-oJ-Sco"/>
+                        <outlet property="teslaSuperchargerSwitch" destination="TQv-FK-z2F" id="bPb-iF-PTL"/>
+                        <outlet property="type2Switch" destination="7Sb-K2-nzj" id="YG0-aB-VnU"/>
+                        <outlet property="type3Switch" destination="DNg-4f-wt9" id="rBi-9d-sAC"/>
                         <outlet property="vehiclePicker" destination="gdw-2M-KbS" id="onA-76-9C9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQA-Q7-eJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2597.5999999999999" y="-704.34782608695662"/>
+            <point key="canvasLocation" x="2593" y="-703"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="oiU-73-iHa">
@@ -630,18 +643,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nXb-lm-Wpm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="796" y="773"/>
+            <point key="canvasLocation" x="796" y="737"/>
         </scene>
         <!--Station Info View Controller-->
         <scene sceneID="AmD-aX-nAB">
             <objects>
                 <viewController id="w3A-IQ-fD3" customClass="StationInfoViewController" customModule="ChargeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1wP-d3-aRG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="827"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="850"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="PBD-g0-hSl">
-                                <rect key="frame" x="0.0" y="88" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="679"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubv-vn-QyL">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="710"/>
@@ -844,7 +857,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bWv-j4-B0O"/>
                     </view>
-                    <size key="freeformSize" width="414" height="827"/>
+                    <size key="freeformSize" width="414" height="850"/>
                     <connections>
                         <outlet property="addreNameLabel" destination="xS2-hE-cas" id="aSk-Rf-bRe"/>
                         <outlet property="chargerPhotosScrollView" destination="dKO-Zj-cti" id="gzi-9P-j9d"/>
@@ -929,6 +942,6 @@
         <image name="webSite" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mGO-wC-Egl"/>
+        <segue reference="CfJ-BY-MHw"/>
     </inferredMetricsTieBreakers>
 </document>

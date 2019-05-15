@@ -14,6 +14,7 @@ enum Socket: String {
     case CHAdeMO = "CHAdeMO"
     case CCS_SAE = "SAE Combo DC CCS"
     case teslaSupercharger = "Tesla Supercharger"
+    case teslaCharger = "Tesla Wall Connector "
     case J_1772 = "J-1772"
     case threePhase = "Three Phase"
     case type2 = "Type 2"
@@ -28,7 +29,7 @@ enum Socket: String {
         } else if socketType.contains("type 2") || socketType.contains("Type 2") {
             self = .type2
         } else if socketType.contains("tesla") || socketType.contains("Tesla") {
-            self = .teslaSupercharger
+            self = .teslaCharger
         } else if socketType.contains("type 3") || socketType.contains("Type 3") {
             self = .type3
         } else if socketType.contains("single") || socketType.contains("Single") {

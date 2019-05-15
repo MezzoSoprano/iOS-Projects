@@ -47,7 +47,7 @@ extension StationInfoViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = socketCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SocketViewCell
-        cell.configureWith(socket: receivedStaition!.socketTypes[indexPath.row])
+        cell.configureWith(socket: receivedStaition!.socketTypes[indexPath.row], name: viewModel.socketsNames[indexPath.row])
         return cell
     }
 }
