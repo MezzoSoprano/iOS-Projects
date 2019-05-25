@@ -42,12 +42,12 @@ class StationInfoViewController: UIViewController {
 extension StationInfoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.socketsNames.count
+        return receivedStaition!.socketTypes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = socketCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SocketViewCell
-        cell.configureWith(typeName: viewModel.socketsNames[indexPath.row])
+        cell.configureWith(socket: receivedStaition!.socketTypes[indexPath.row], name: viewModel.socketsNames[indexPath.row])
         return cell
     }
 }

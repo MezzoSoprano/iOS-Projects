@@ -20,8 +20,11 @@ class MainViewController: UIViewController {
     @IBOutlet weak var selectedRangeLabel: UILabel!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var topStackView: UIStackView!
-    @IBOutlet weak var goToMyLocation: LOTAnimationView!
     @IBOutlet var longPressGesture: UILongPressGestureRecognizer!
+    @IBOutlet weak var sideStackView: UIStackView!
+    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var goHomeButton: UIButton!
+    
     
     let tableAutocomplete = UITableView()
     
@@ -61,23 +64,15 @@ class MainViewController: UIViewController {
         
         searchCompleter.delegate = self
         
-        goToMyLocation.setAnimation(named: "location")
-        goToMyLocation.play()
-        goToMyLocation.setLightShadow()
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToInitialCoordinates))
-        goToMyLocation.addGestureRecognizer(tapGesture)
-        goToMyLocation.isUserInteractionEnabled = true
-        goToMyLocation.translatesAutoresizingMaskIntoConstraints = false
-        
         refreshButton.setLightShadow()
         searchButton.setLightShadow()
+        filterButton.setLightShadow()
+        goHomeButton.setLightShadow()
         
         //getting the slider released method
         self.slider.addTarget(self, action: #selector(rangeRealesed), for: .touchUpInside)
         
         checkLocationservices()
-        
         if locationManager.location != nil {
             selectedCoordinates = locationManager.location!.coordinate
         }
@@ -151,11 +146,16 @@ class MainViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is StationInfoViewController {
-            let vc = segue.destination as? StationInfoViewController
-            
-            if let sa = selectedAnnotation {
-                vc?.receivedStaition = showedStaions.first(where: { $0.AddressInfo?.Latitude == sa.annotation?.coordinate.latitude && $0.AddressInfo?.Longitude == sa.annotation?.coordinate.longitude})
+        if let identifier = segue.identifier {
+            if identifier == "showModally" {
+                if let viewController = segue.destination as? FilterViewController {
+                    viewController.delegate = self
+                    viewController.modalPresentationStyle = .overFullScreen
+                }
+            } else if identifier == "swgueToInfo" {
+                if let sa = selectedAnnotation, let vc = segue.destination as? StationInfoViewController {
+                    vc.receivedStaition = showedStaions.first(where: { $0.AddressInfo?.Latitude == sa.annotation?.coordinate.latitude && $0.AddressInfo?.Longitude == sa.annotation?.coordinate.longitude})
+                }
             }
         }
     }
@@ -165,14 +165,22 @@ class MainViewController: UIViewController {
 
 extension MainViewController {
     
-    @objc func goToInitialCoordinates() {
-        goToMyLocation.play()
+    @IBAction func filter(_ sender: Any) {
+        filterButton.lightAnimate {() in self.definesPresentationContext = true
+            self.providesPresentationContextTransitionStyle = true
+            
+            self.overlayBlurredBackgroundView()
+            self.performSegue(withIdentifier: "showModally", sender: nil)}
+    }
+    
+    @IBAction func goToHome(_ sender: Any) {
+        goHomeButton.lightAnimate {}
         
-        if let location = locationManager.location {
-            selectedCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            centerView(with: selectedCoordinates, region: 20)
+        if let location = self.locationManager.location {
+            self.selectedCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            self.centerView(with: self.selectedCoordinates, region: 20)
         } else {
-            checkLocationservices()
+            self.checkLocationservices()
         }
     }
     
@@ -202,6 +210,17 @@ extension MainViewController {
         self.mapView.addAnnotation(annotation)
         
         self.showStations(near: selectedCoordinates, distance: Double(self.selectedRangeLabel.text!)!)
+    }
+    
+    @objc func goButtonPressed(sender: Any) {
+        
+        if selectedAnnotation != nil, let location = selectedAnnotation!.annotation as? ChargeStationAnnotation {
+            let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+            location.mapItem().openInMaps(launchOptions: launchOptions)
+            
+        } else {
+            createAlert(title: "Couldn't build the  route", message: "Select the staion or/and location")
+        }
     }
 }
 
@@ -259,7 +278,7 @@ extension MainViewController : CLLocationManagerDelegate {
     }
 }
 
-// MARK - Map View delegate
+// MARK: - Map View Delegate
 
 extension MainViewController: MKMapViewDelegate {
     
@@ -315,7 +334,7 @@ extension MainViewController: MKMapViewDelegate {
                        options: .allowUserInteraction,
                        animations: {
                         UIView.animate(withDuration: 5) {
-                            self.goToMyLocation.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+                            self.sideStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
                         }
                         self.goButton.transform = .identity
                         self.goButton.backgroundColor = UIColor(r: 127, g: 181, b: 181)
@@ -330,18 +349,31 @@ extension MainViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         self.performSegue(withIdentifier: "swgueToInfo", sender: nil)
     }
-    
-    @objc func goButtonPressed(sender: Any) {
-        
-        if selectedAnnotation != nil, let location = selectedAnnotation!.annotation as? ChargeStationAnnotation {
-            let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-            location.mapItem().openInMaps(launchOptions: launchOptions)
-            
-        } else {
-            createAlert(title: "Couldn't build the  route", message: "Select the staion or/and location")
-        }
-    }
 }
 
+// MARK: - Modal View Presenting
 
+extension MainViewController: ModalViewControllerDelegate {
+    
+    func overlayBlurredBackgroundView() {
+        
+        let blurredBackgroundView = UIVisualEffectView()
+        
+        blurredBackgroundView.frame = view.frame
+        blurredBackgroundView.effect = UIBlurEffect(style: .dark)
+        
+        view.addSubview(blurredBackgroundView)
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    func removeBlurredBackgroundView() {
+        
+        for subview in view.subviews {
+            if subview.isKind(of: UIVisualEffectView.self) {
+                subview.removeFromSuperview()
+            }
+        }
+        self.tabBarController?.tabBar.isHidden = false
+    }
+}
 

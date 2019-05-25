@@ -15,31 +15,20 @@ extension MainViewController: UISearchBarDelegate {
     
     @IBAction func seartchTapped(_ sender: Any) {
         
-        searchButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        UIView.animate(withDuration: 0.2,
-                       delay: 0,
-                       usingSpringWithDamping: 0.2,
-                       initialSpringVelocity: 6.0,
-                       options: .allowUserInteraction,
-                       animations: {
-                        self.searchButton.transform = .identity
-                        
-        }) { (isFinished) in
-            UIView.animate(withDuration: 0.5, animations: {
-                self.showStackView(bool: false)
-                self.blurViewMap.frame = self.mapView.bounds
-                self.mapView.addSubview(self.blurViewMap)
-            }, completion: nil)
-            
-            let searchController = UISearchController(searchResultsController: nil)
-            searchController.searchBar.delegate = self
-            searchController.searchBar.searchBarStyle = .minimal
-            searchController.obscuresBackgroundDuringPresentation = false
-            self.present(searchController, animated: true, completion: nil)
-            
-            self.setupTableView()
-            
+        searchButton.lightAnimate { () in
+            self.showStackView(bool: false)
+            self.blurViewMap.frame = self.mapView.bounds
+            self.mapView.addSubview(self.blurViewMap)
         }
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.delegate = self
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.obscuresBackgroundDuringPresentation = false
+        self.present(searchController, animated: true, completion: nil)
+        
+        self.setupTableView()
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

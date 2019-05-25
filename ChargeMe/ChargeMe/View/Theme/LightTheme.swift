@@ -13,3 +13,4 @@ class LightTheme: ThemeProtocol {
     static var background: UIColor = UIColor(r: 240, g: 241, b: 246)
     static var tint: UIColor = UIColor(r: 201, g: 201, b: 200)
 }
+

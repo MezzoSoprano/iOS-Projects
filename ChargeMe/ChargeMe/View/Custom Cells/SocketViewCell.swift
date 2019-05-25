@@ -18,21 +18,34 @@ class SocketViewCell: UICollectionViewCell {
 
 extension SocketViewCell {
     
-    func configureWith(typeName: String) {
-        self.typeName.text = typeName
-    
-        if typeName.contains("Type 2") {
-            self.typeImage.image = UIImage(named: "type2")
-        } else if typeName.contains("Type 1") {
-            self.typeImage.image = UIImage(named: "type1")
-        } else if typeName.contains("Tesla") {
-            self.typeImage.image = UIImage(named: "teslaCharg")
-        } else if typeName.contains("CCS") {
-            self.typeImage.image = UIImage(named: "ccs")
-        } else if typeName.contains("CHAdeMO") {
-            self.typeImage.image = UIImage(named: "chademo")
+    func configureWith(socket: Socket, name: String) {
+        if socket.rawValue == "Unknown" {
+        self.typeName.text = name
         } else {
+            self.typeName.text = socket.rawValue
+        }
+        
+        switch socket {
+        case .CCS_SAE:
+            self.typeImage.image = UIImage(named: "ccs")
+        case .euroPlug:
+            self.typeImage.image = UIImage(named: "type1")
+        case .CHAdeMO:
+            self.typeImage.image = UIImage(named: "chademo")
+        case .teslaSupercharger:
+            self.typeImage.image = UIImage(named: "teslaCharg")
+        case .J_1772:
+            self.typeImage.image = UIImage(named: "J-1772")
+        case .threePhase:
+            self.typeImage.image = UIImage(named: "Three Phase (EU)")
+        case .type2:
+            self.typeImage.image = UIImage(named: "type2")
+        case .type3:
             self.typeImage.image = UIImage(named: "noPicture")
+        case .unknown:
+            self.typeImage.image = UIImage(named: "noPicture")
+        case .teslaCharger:
+            self.typeImage.image = UIImage(named: "teslaCharg")
         }
     }
 }

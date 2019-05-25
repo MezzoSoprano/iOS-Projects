@@ -15,7 +15,15 @@ struct ChargeStation: Codable {
     let ID: Int?
     let GeneralComments: String?
     var DateLastVerified: String?
-
+    
+    var socketTypes: [Socket] {
+        var array = [Socket]()
+        for item in self.Connections {
+            array.append(Socket(socketType: item?.ConnectionType?.Title ?? ""))
+        }
+        
+        return array
+    }
      struct AddressInfo: Codable {
         let Title: String?
         let AddressLine1: String?
