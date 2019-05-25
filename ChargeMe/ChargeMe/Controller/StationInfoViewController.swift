@@ -23,6 +23,7 @@ class StationInfoViewController: UIViewController {
     @IBOutlet weak var contactPhoneLabel: UILabel!
     @IBOutlet weak var contactEmailLabel: UILabel!
     @IBOutlet weak var contactWebSiteLabel: UILabel!
+    @IBOutlet weak var payImageView: UIImageView!
     
     let gravitySliderLayout = GravitySliderFlowLayout(with: CGSize(width: 400, height: 400))
     
@@ -36,6 +37,14 @@ class StationInfoViewController: UIViewController {
         chargerPhotosScrollView.backgroundColor = UIColor(r: 154, g: 244, b: 204)
     
         socketCollectionView.collectionViewLayout = gravitySliderLayout
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let station = receivedStaition {
+            if station.needPayForLocation {
+                payImageView.image = UIImage(named: "dollar")
+            }
+        }
     }
 }
 

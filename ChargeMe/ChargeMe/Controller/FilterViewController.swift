@@ -21,13 +21,10 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var vehiclePicker: UIPickerView!
     
-    @IBOutlet weak var publicPlaceSwitch: UISwitch!
-    @IBOutlet weak var homePlaceSwitch: UISwitch!
-    @IBOutlet weak var freePlaceSwitch: UISwitch!
-    @IBOutlet weak var privatePlaceSwitch: UISwitch!
+    @IBOutlet weak var needMembershipSwitch: UISwitch!
+    @IBOutlet weak var payForLocationSwitch: UISwitch!
     
     
-    @IBOutlet weak var USWalletPlugSwitch: UISwitch!
     @IBOutlet weak var chademoSwitch: UISwitch!
     @IBOutlet weak var EuroWalletPlugSwitch: UISwitch!
     @IBOutlet weak var j_1772Switch: UISwitch!
@@ -35,8 +32,7 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var type3Switch: UISwitch!
     @IBOutlet weak var type2Switch: UISwitch!
     @IBOutlet weak var saeComboCCSSwitch: UISwitch!
-    @IBOutlet weak var nemaSwitch: UISwitch!
-    
+
     
     override func viewDidLayoutSubviews() {
         view.backgroundColor = UIColor.clear
@@ -51,6 +47,17 @@ class FilterViewController: UIViewController {
         cancelButton.setImage(tintedCancelImage, for: .normal)
         cancelButton.tintColor = .white
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        configureWithFilter()
+    }
+    
+    fileprivate func configureWithFilter() {
+        needMembershipSwitch.isOn = Filter.needMembership
+        payForLocationSwitch.isOn = Filter.payForLocation
+        
+        configureSocketFilterWith(vehicle: Filter.currentVehicle)
+    }
 }
 
 // MARK: - Actions
@@ -63,7 +70,6 @@ extension FilterViewController {
     }
     
     fileprivate func switchOffSocketFilter() {
-        self.USWalletPlugSwitch.setOn(false, animated: true)
         self.chademoSwitch.setOn(false, animated: true)
         self.type3Switch.setOn(false, animated: true)
         self.type2Switch.setOn(false, animated: true)
@@ -71,7 +77,6 @@ extension FilterViewController {
         self.j_1772Switch.setOn(false, animated: true)
         self.saeComboCCSSwitch.setOn(false, animated: true)
         self.teslaSuperchargerSwitch.setOn(false, animated: true)
-        self.nemaSwitch.setOn(false, animated: true)
     }
     
     fileprivate func configureSocketFilterWith(vehicle: ElectricVehicle) {
@@ -103,6 +108,14 @@ extension FilterViewController {
             }
         }
     }
+    
+    @IBAction func payForLocationDidChange(_ sender: UISwitch) {
+        Filter.payForLocation = sender.isOn
+    }
+    
+    @IBAction func needMembershipDidChange(_ sender: UISwitch) {
+        Filter.needMembership = sender.isOn
+    }
 }
 
 // MARK: - Picker View Delegate, Picker View Delegate
@@ -123,7 +136,7 @@ extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let selectedVehicle = eVehicles[row]
-        
+        Filter.currentVehicle = selectedVehicle
         configureSocketFilterWith(vehicle: selectedVehicle)
     }
 }

@@ -89,7 +89,7 @@ extension StationTableCell {
         self.nameLabel.text = station.AddressInfo?.Title ?? "Address Title not found"
         
         let distance = String(format: "%.2f", station.AddressInfo?.Distance ?? 0)
-        var distanceText = "Drive: \(distance) km"
+        var distanceText = "Drive: \(distance) " + "\(((Settings.km) ? "km" : "miles"))"
         
         if station.Connections.count > 0 {
             distanceText.append(", ")

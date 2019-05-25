@@ -82,6 +82,8 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        self.mapView.mapType = Settings.mapType
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -93,22 +95,32 @@ class MainViewController: UIViewController {
             
             switch result {
             case .Success(let nearStations):
-                
+                print(nearStations.count)
                 if nearStations.count == 0 {
                     self.createAlert(title: "Couldn't find charge stations", message: "Sorry, there ara no any charge stations near selected region with distance \(distance) km")
                     self.centerView(with: coordinates, region: Double(self.selectedRangeLabel.text!)!)
                 } else {
-                    print(nearStations.count)
-                    
                     self.mapView.removeAnnotations(self.mapView.annotations.filter({ $0.coordinate.latitude != self.selectedCoordinates.latitude && $0.coordinate.longitude != self.selectedCoordinates.longitude
                     }))
+                    
+                    var stations = [ChargeStation]()
+                    
                     for item in nearStations {
                         
+                        if !Filter.needMembership {
+                            if item.needMembership == true { continue }
+                        }
+                        if !Filter.payForLocation {
+                            if item.needPayForLocation == true { continue }
+                        }
+                        if !item.suitsFor(vehicle: Filter.currentVehicle) { continue }
+                        stations.append(item)
                         let annotaion: MKAnnotation = item.createAnnotaion()
                         self.mapView.addAnnotation(annotaion)
                         
                     }
-                    showedStaions = nearStations
+                    print(stations.count)
+                    showedStaions = stations
                     self.centerView(with: coordinates, region: Double(self.selectedRangeLabel.text!)!)
                 }
             case .Failure(let error as NSError):

@@ -13,9 +13,10 @@ class MapChargesTypeURL {
     static var baseURL: String = "https://api.openchargemap.io/v2/poi/?"
     
     static func getModifiedRequest(coordinates: CLLocationCoordinate2D, distance: Double) -> URLRequest {
-        let urlString = baseURL + "maxresults=1000&distanceunit=KM&latitude=\(coordinates.latitude)&longitude=\(coordinates.longitude)&distance=\(distance)"
+        let urlString = baseURL + "maxresults=1000&distanceunit=\(Settings.km ? "KM" : "miles")&latitude=\(coordinates.latitude)&longitude=\(coordinates.longitude)&distance=\(distance)"
         let url = URL(string: urlString)!
         let request = URLRequest(url: url)
+        print(urlString)
         return request
     }
 }

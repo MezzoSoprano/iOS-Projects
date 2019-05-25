@@ -22,6 +22,9 @@
 		766FA1CB21F51040003030F0 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CA21F51040003030F0 /* APIManager.swift */; };
 		766FA1CD21F524A5003030F0 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CC21F524A5003030F0 /* NetworkError.swift */; };
 		766FA1CF21F52F75003030F0 /* APIStationChargerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */; };
+		76A363622299A69F005B9C16 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A363612299A69F005B9C16 /* SettingsViewController.swift */; };
+		76A363642299A83C005B9C16 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A363632299A83C005B9C16 /* Setting.swift */; };
+		76A363662299DBC2005B9C16 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A363652299DBC2005B9C16 /* Filter.swift */; };
 		76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */; };
 		76C79B8C22184CF60086E271 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B8B22184CF60086E271 /* TableViewController.swift */; };
 		76C79B8E221850DD0086E271 /* StationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C79B8D221850DD0086E271 /* StationTableCell.swift */; };
@@ -57,6 +60,9 @@
 		766FA1CA21F51040003030F0 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIManager.swift; path = ChargeMe/Networking/APIManager.swift; sourceTree = SOURCE_ROOT; };
 		766FA1CC21F524A5003030F0 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		766FA1CE21F52F75003030F0 /* APIStationChargerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStationChargerManager.swift; sourceTree = "<group>"; };
+		76A363612299A69F005B9C16 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		76A363632299A83C005B9C16 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		76A363652299DBC2005B9C16 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		76C06EE421F9DD0300C61ECA /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		76C79B8B22184CF60086E271 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		76C79B8D221850DD0086E271 /* StationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTableCell.swift; sourceTree = "<group>"; };
@@ -164,6 +170,8 @@
 				7623DB8B21F73A6300E40D9A /* Coordinates.swift */,
 				F9A28878228AF59800C14C04 /* SocketType.swift */,
 				F9BADCC5228BFF29008DF785 /* ElectricVehicle.swift */,
+				76A363632299A83C005B9C16 /* Setting.swift */,
+				76A363652299DBC2005B9C16 /* Filter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,6 +194,7 @@
 				76C79B8B22184CF60086E271 /* TableViewController.swift */,
 				76CFE053221C3F6300ED2ED5 /* StationInfoViewController.swift */,
 				F9A28876228ABDB700C14C04 /* FilterViewController.swift */,
+				76A363612299A69F005B9C16 /* SettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -403,6 +412,7 @@
 				766FA1CB21F51040003030F0 /* APIManager.swift in Sources */,
 				76C79B8C22184CF60086E271 /* TableViewController.swift in Sources */,
 				F9A28879228AF59800C14C04 /* SocketType.swift in Sources */,
+				76A363642299A83C005B9C16 /* Setting.swift in Sources */,
 				76C06EE521F9DD0300C61ECA /* UIViewExtension.swift in Sources */,
 				76FA7B1721F74653000C41A2 /* UIViewControllerExtension.swift in Sources */,
 				76C79B9322185FC00086E271 /* LightTheme.swift in Sources */,
@@ -420,7 +430,9 @@
 				76C79B8E221850DD0086E271 /* StationTableCell.swift in Sources */,
 				76CFE054221C3F6300ED2ED5 /* StationInfoViewController.swift in Sources */,
 				7623DB8C21F73A6300E40D9A /* Coordinates.swift in Sources */,
+				76A363662299DBC2005B9C16 /* Filter.swift in Sources */,
 				76197CDC221EC818004D20BA /* SocketViewCell.swift in Sources */,
+				76A363622299A69F005B9C16 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

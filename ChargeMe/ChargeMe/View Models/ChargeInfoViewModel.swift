@@ -26,7 +26,7 @@ class ChargeInfoViewModel {
     
     public var driveDistanceText: String {
         let distanceText = String(format: "%.2f", station.AddressInfo?.Distance ?? 0)
-        var text = "Drive: \(distanceText) km"
+        var text = "Drive: \(distanceText) \(((Settings.km) ? "km" : "miles"))"
         
         if station.Connections.count > 0 {
             text.append(", ")

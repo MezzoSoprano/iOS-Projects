@@ -53,6 +53,46 @@ struct ChargeStation: Codable {
         }
     }
     
+    var needMembership: Bool {
+        
+        if let usage = self.UsageType {
+            if let p1 = usage.IsAccessKeyRequired, let p2 = usage.IsMembershipRequired {
+                if p1 || p2 {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    var needPayForLocation: Bool {
+        
+        if let usage = self.UsageType {
+            if let p1 = usage.IsPayAtLocation {
+                if p1 {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+
+    struct UsageType: Codable {
+        let IsPayAtLocation: Bool?
+        let IsMembershipRequired: Bool?
+        let IsAccessKeyRequired: Bool?
+    }
+    
     struct MediaItems: Codable {
         let ItemThumbnailURL: String?
         let ItemURL: String?
@@ -62,6 +102,7 @@ struct ChargeStation: Codable {
     let AddressInfo: AddressInfo?
     let OperatorInfo: OperatorInfo?
     let Connections: [Connections?]
+    let UsageType: UsageType?
     
     func createAnnotaion() -> ChargeStationAnnotation {
         
@@ -105,5 +146,47 @@ class ChargeStationAnnotation: NSObject, MKAnnotation {
     
     var subtitle: String? {
         return locationName
+    }
+}
+
+// methods
+
+extension ChargeStation {
+    
+    func suitsFor(vehicle: ElectricVehicle) -> Bool {
+        if vehicle.modelName == ElectricVehicle().modelName {
+            return true
+        } else {
+            
+            for connectType in self.Connections {
+    
+                for socket in vehicle.compatibleSockets {
+                    switch socket {
+                        
+                    case .euroPlug:
+                        if (connectType?.ConnectionType?.Title?.contains("euro"))! { return true }
+                    case .CHAdeMO:
+                        if (connectType?.ConnectionType?.Title?.contains("CHAd"))! { return true }
+                    case .CCS_SAE:
+                        if (connectType?.ConnectionType?.Title?.contains("CCS"))! { return true }
+                    case .teslaSupercharger:
+                        if (connectType?.ConnectionType?.Title?.contains("Supercharger"))! { return true }
+                    case .teslaCharger:
+                        if (connectType?.ConnectionType?.Title?.contains("Tesla"))! { return true }
+                    case .J_1772:
+                        if (connectType?.ConnectionType?.Title?.contains("J1772"))! { return true }
+                    case .threePhase:
+                        if (connectType?.ConnectionType?.Title?.contains("Three"))! { return true }
+                    case .type2:
+                        if (connectType?.ConnectionType?.Title?.contains("Type 2"))! { return true }
+                    case .type3:
+                        if (connectType?.ConnectionType?.Title?.contains("Type 3"))! { return true }
+                    case .unknown:
+                        print("UKNOWN SOCKET TYPE !")
+                    }
+                }
+            }
+            return false
+        }
     }
 }

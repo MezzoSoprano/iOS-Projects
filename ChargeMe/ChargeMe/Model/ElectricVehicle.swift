@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ElectricVehicle {
+struct ElectricVehicle {
     
     let modelName: String
     
@@ -29,5 +29,7 @@ let emptyVhicle = ElectricVehicle()
 let TeslaModelX = ElectricVehicle(model: "Tesla Model X", sockets: [.teslaCharger, .teslaSupercharger, .J_1772, .euroPlug, .threePhase])
 let TeslaModelS = ElectricVehicle(model: "Tesla Model S", sockets: [.teslaCharger, .teslaSupercharger, .J_1772, .euroPlug, .threePhase])
 let TeslaModel3 = ElectricVehicle(model: "Tesla Model 3", sockets: [.teslaCharger, .teslaSupercharger, .J_1772, .euroPlug, .threePhase, Socket.CCS_SAE])
+let NissanLeaf = ElectricVehicle(model: "Nissan Leaf", sockets: [Socket.type2, Socket.CHAdeMO, Socket.euroPlug])
+let RenaultZoe = ElectricVehicle(model: "Nissan Leaf", sockets: [Socket.type2, Socket.euroPlug])
 
-let eVehicles = [emptyVhicle, TeslaModel3, TeslaModelS, TeslaModelX]
+let eVehicles = [emptyVhicle, TeslaModel3, TeslaModelS, TeslaModelX, NissanLeaf, RenaultZoe]
